@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>SICAMEX - CEDIS</title>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	
+	<!-- RTL support - for demo only -->
+	<script src="js/demo-rtl.js"></script>
+	<!-- 
+	If you need RTL support just include here RTL CSS file <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-rtl.min.css" />
+	And add "rtl" class to <body> element - e.g. <body class="rtl"> 
+	-->
+	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="css/libs/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/nanoscroller.css" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="css/compiled/theme_styles.css" />
+
+	<!-- this page specific styles -->
+	<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/jquery-jvectormap-1.2.2.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/weather-icons.css" type="text/css" />
+	
+	<!-- Favicon -->
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon" />
+
+	<!-- google font libraries -->
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+	
+	
+	<!--NOTIFICACION	this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-default.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-growl.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-bar.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-attached.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-other.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-theme.css"/>
+	
+	<!--MODAL this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="css/libs/nifty-component.css"/>
+	
+	<!-- this page specific styles -->
+	<style type="text/css">
+	/* Set a size for our map container, the Google Map will take up 100% of this container */
+	.map-content {
+	    width: 100%;
+	    height: 300px;
+	}
+	.map-content-reg {
+	    width: 100%;
+	    height: 200px;
+	}
+	</style>
+	
+	
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+			
+	<!-- Standard Bootstrap Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">EDITA CEDIS</h4>
+				</div>
+				<div class="modal-body">
+					
+					<form role="form">
+												
+						<div class="form-group">
+							<label for="edtNombre">Nombre del CEDIS</label>
+							<input type="text" class="form-control" id="edtNombre" placeholder="Nombre del CEDIS">
+							
+							<br />
+							
+							<label for="edtnEmpresa">Nombre de Empresa</label>
+							<input type="text" class="form-control" id="edtnEmpresa" placeholder="Nombre de Empresa">
+							<br />
+							
+							<label for="edtRFC">RFC</label>
+							<input type="text" class="form-control" id="edtRFC" placeholder="RFC">
+							<br />
+							
+							<label for="edtTelefono">Telefono del CEDIS</label>
+							<input type="tel" class="form-control" id="edtTelefono" placeholder="Telefono del CEDIS">
+							<br />
+							
+							<label for="edtDomicilio">Domicilio del CEDIS</label>
+							<input type="text" class="form-control" id="edtDomicilio" placeholder="Domicilio del CEDIS">
+							
+							<!--<span class="help-block"><i class="icon-ok-sign"></i> Success message</span>-->
+						</div>
+																														
+						<div class="main-box-body clearfix">
+							<label for="map-edita">Da clic en el mapa para editar la ubicacion del CEDIS</label>
+							<div id="map-edita" class="map-content"></div>
+						</div>																	
+						
+					</form>					
+					
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger pull-left" id="ELIMINA" idRegistro = "" data-dismiss="modal"><span class="fa fa-trash-o"></span> Eliminar</button>
+					
+					<button type="button" class="btn btn-primary btn-lg" id="EDITA" idRegistro = "" data-dismiss="modal">Guardar Cambios</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+	
+	
+	<div id="theme-wrapper">
+		<header class="navbar" id="header-navbar">
+			<div class="container">
+				<a href="index.html" id="logo" class="navbar-brand">
+					<img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+					<img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+					<img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+				</a>
+				
+				<div class="clearfix">
+				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">Toggle Modulos</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				
+				<div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+					<ul class="nav navbar-nav pull-left">
+						<li>
+							<a class="btn" id="make-small-nav">
+								<i class="fa fa-bars"></i>
+							</a>
+						</li>
+						<!--1496<li class="dropdown hidden-xs">
+							<a class="btn dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-bell"></i>
+								<span class="count">8</span>
+							</a>
+							<ul class="dropdown-menu notifications-list">
+								<li class="pointer">
+									<div class="pointer-inner">
+										<div class="arrow"></div>
+									</div>
+								</li>
+								<li class="item-header">You have 6 new notifications</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-comment"></i>
+										<span class="content">New comment on ‘Awesome P...</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-plus"></i>
+										<span class="content">New user registration</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-envelope"></i>
+										<span class="content">New Message from George</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-shopping-cart"></i>
+										<span class="content">New purchase</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-eye"></i>
+										<span class="content">New order</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item-footer">
+									<a href="#">
+										View all notifications
+									</a>
+								</li>
+							</ul>
+						</li>-->
+						
+					</ul>
+				</div>
+				
+				<div class="nav-no-collapse pull-right" id="header-nav">
+					<ul class="nav navbar-nav pull-right">
+						
+						<li class="hidden-xxs">
+							<a class="btn">
+								<i class="fa fa-power-off"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</header>
+		
+		<div id="page-wrapper" class="container">
+			<div class="row">
+				<div id="nav-col">
+					<section id="col-left" class="col-left-nano">
+						<div id="col-left-inner" class="col-left-nano-content">
+							<div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
+								<img alt="" src="img/samples/scarlet-159.png" />
+								<div class="user-box">
+									<span class="name">
+										<a id="User" href="#" class="dropdown-toggle" data-toggle="dropdown">
+											
+											<i class="fa fa-angle-down"></i>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="user-profile.html"><i class="fa fa-user"></i>Perfil</a></li>
+											<li><a href="#"><i class="fa fa-power-off"></i>Cerrar Sesión</a></li>
+										</ul>
+									</span>
+									<span class="status">
+										<i class="fa fa-circle"></i> Online
+									</span>
+								</div>
+							</div>
+							
+							<div id="frame_menu" page="cedis.html"></div>
+
+						</div>
+					</section>
+					<div id="nav-col-submenu"></div>
+				</div>
+				
+				<div id="content-wrapper">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-lg-12">
+									<div id="content-header" class="clearfix">
+										<div class="pull-left">
+																					
+											<h1>CEDIS</h1>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							
+							<!--REGISTROS-->
+							<div class="row CRUD_R"  id="REG">
+								
+								<!--<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+									<div class="main-box clearfix profile-box-contact">
+										<div class="main-box-body clearfix">
+											<div class="profile-box-header gray-bg clearfix">
+												<span class="fa fa-edit fa-3x pull-left"></span>
+												<h2>APODACA</h2>
+												<div class="job-position">
+													CEDIS
+												</div>												
+											</div>
+											
+											
+											<div class="main-box-body clearfix">
+												<div id="map" class="map-content-reg"></div>
+											</div>
+										</div>
+									</div>
+								</div>-->
+															
+								
+							</div>
+							
+							<!--ALTA-->
+							<div id="CRUD_C" class="row">
+								<div class="col-lg-12">
+									<div class="main-box">
+										<header class="main-box-header clearfix">
+											<h2>CREA UN NUEVO CEDIS</h2>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											<form role="form">
+												
+												<div class="form-group">
+													<label for="Nombre">Nombre del CEDIS</label>
+													<input type="email" class="form-control" id="Nombre" placeholder="Nombre del CEDIS">
+													
+													<br />
+													
+													<label for="nEmpresa">Nombre de Empresa</label>
+													<input type="text" class="form-control" id="nEmpresa" placeholder="Nombre de Empresa">
+													<br />
+													
+													<label for="RFC">RFC</label>
+													<input type="text" class="form-control" id="RFC" placeholder="RFC">
+													<br />
+													
+													<label for="Telefono">Telefono del CEDIS</label>
+													<input type="tel" class="form-control" id="Telefono" placeholder="Telefono del CEDIS">
+													<br />
+													
+													<label for="Domicilio">Domicilio del CEDIS</label>
+													<input type="text" class="form-control" id="Domicilio" placeholder="Domicilio del CEDIS">
+													<!--<span class="help-block"><i class="icon-ok-sign"></i> Success message</span>-->
+												</div>
+																																				
+												<div class="main-box-body clearfix">
+													<label for="map-apple">Da clic en el mapa para dar de alta la ubicacion del CEDIS</label>
+													<div id="map-apple" class="map-content"></div>
+												</div>
+												
+												<button type="button" class="btn btn-success" id="SAVE">Guardar</button>												
+												
+											</form>
+											
+											<a style="display: none;" id="btnEDT" data-toggle="modal" href="#myModal" class="btn btn-primary mrg-b-lg">Standard Boostrap Modal</a>
+																				
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<footer id="footer-bar" class="row">
+						<p id="footer-copyright" class="col-xs-12">
+							Powered by Sicamex.
+						</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+	<!--<div id="config-tool" class="closed">
+		<a id="config-tool-cog">
+			<i class="fa fa-cog"></i>
+		</a>
+		
+		<div id="config-tool-options">
+			<h4>Layout Options</h4>
+			<ul>
+				<li>
+					<div class="checkbox-nice">
+						<input type="checkbox" id="config-fixed-header" />
+						<label for="config-fixed-header">
+							Fixed Header
+						</label>
+					</div>
+				</li>
+				<li>
+					<div class="checkbox-nice">
+						<input type="checkbox" id="config-fixed-sidebar" />
+						<label for="config-fixed-sidebar">
+							Fixed Left Menu
+						</label>
+					</div>
+				</li>
+				<li>
+					<div class="checkbox-nice">
+						<input type="checkbox" id="config-fixed-footer" />
+						<label for="config-fixed-footer">
+							Fixed Footer
+						</label>
+					</div>
+				</li>
+				<li>
+					<div class="checkbox-nice">
+						<input type="checkbox" id="config-boxed-layout" />
+						<label for="config-boxed-layout">
+							Boxed Layout
+						</label>
+					</div>
+				</li>
+				<li>
+					<div class="checkbox-nice">
+						<input type="checkbox" id="config-rtl-layout" />
+						<label for="config-rtl-layout">
+							Right-to-Left
+						</label>
+					</div>
+				</li>
+			</ul>
+			<br/>
+			<h4>Skin Color</h4>
+			<ul id="skin-colors" class="clearfix">
+				<li>
+					<a class="skin-changer" data-skin="" data-toggle="tooltip" title="Default" style="background-color: #34495e;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-white" data-toggle="tooltip" title="White/Green" style="background-color: #2ecc71;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer blue-gradient" data-skin="theme-blue-gradient" data-toggle="tooltip" title="Gradient">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-turquoise" data-toggle="tooltip" title="Green Sea" style="background-color: #1abc9c;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-amethyst" data-toggle="tooltip" title="Amethyst" style="background-color: #9b59b6;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-blue" data-toggle="tooltip" title="Blue" style="background-color: #2980b9;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-red" data-toggle="tooltip" title="Red" style="background-color: #e74c3c;">
+					</a>
+				</li>
+				<li>
+					<a class="skin-changer" data-skin="theme-whbl" data-toggle="tooltip" title="White/Blue" style="background-color: #3498db;">
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+-->
+	
+	<!-- global scripts -->
+	<script src="js/demo-skin-changer.js"></script> <!-- only for demo -->
+	
+	<script src="js/jquery.js"></script><script src="js/framework.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.nanoscroller.min.js"></script>
+	
+	<script src="js/demo.js"></script> <!-- only for demo -->
+	
+	<!-- this page specific scripts -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+	<script src="js/jquery-jvectormap-world-merc-en.js"></script>
+	<script src="js/gdp-data.js"></script>
+	<script src="js/flot/jquery.flot.min.js"></script>
+	<script src="js/flot/jquery.flot.resize.min.js"></script>
+	<script src="js/flot/jquery.flot.time.min.js"></script>
+	<script src="js/flot/jquery.flot.threshold.js"></script>
+	<script src="js/flot/jquery.flot.axislabels.js"></script>
+	<script src="js/jquery.sparkline.min.js"></script>
+	<script src="js/skycons.js"></script>
+	
+
+	
+
+
+	<!-- GOOGLE MAP		this page specific scripts -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&?key=AIzaSyASm3CwaK9qtcZEWYa-iQwHaGi3gcosAJc&sensor=false"></script>
+	<!-- maps.googleapis.com/maps/api/js?v=3&key={your key}&sensor=false -->
+	
+	<!-- NOTIFICACION	this page specific scripts -->
+	<script src="js/modernizr.custom.js"></script>
+	<script src="js/snap.svg-min.js"></script> <!-- For Corner Expand and Loading circle effect only -->
+	<script src="js/classie.js"></script>
+	<script src="js/notificationFx.js"></script>
+	
+	<!--MODAL this page specific scripts -->
+	<script src="js/modalEffects.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="js/scripts.js"></script>
+	<script src="js/pace.min.js"></script>
+	
+
+	
+	<script src="../jWS/Cedis.js" type="text/javascript"></script>
+	
+	<!-- this page specific inline scripts -->
+	<script type="text/javascript">
+	    // When the window has finished loading create our google map below
+	    google.maps.event.addDomListener(window, 'load', init);
+	    
+	    var MAPA;
+	    
+	    function init() {
+	    	var latlng = new google.maps.LatLng(40.763986, -73.958674);
+	    	var latlngIndia = new google.maps.LatLng(22.394181, 78.384689);
+	    	  
+	    	
+	        /*//APPLE MAP
+	        var mapOptionsApple = {
+	            zoom: 12,
+	            scrollwheel: true,
+	            center: latlng,
+	
+	            // How you would like to style the map. 
+	            // This is where you would paste any style found on Snazzy Maps.
+	            //styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.business","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]}]
+	        };
+	
+	        var mapElementApple = document.getElementById('map-apple');
+	
+	        // Create the Google Map using out element and options defined above
+	        var mapApple = new google.maps.Map(mapElementApple, mapOptionsApple);
+	        
+	        var markerApple = new google.maps.Marker({
+	    		position: latlng,
+	    		map: mapApple
+	    	});*/
+	    	
+	    	MAPA = new ggMapsM('map-apple');		
+
+			MAPA.initialize();
+	    	
+	    	
+	    	
+	    }
+	    
+	    
+	    var dominio = 'http://s546961254.onlinehome.mx';//'http://app27.mid-interactive.com';
+	    
+	    var ref = {'F_serv':dominio+'/services/services.php',
+
+				'F_img':dominio+'/img/',
+
+				'F_song':dominio+'/services/resources/song/'};
+		
+		
+	    
+	    //||||||Click Map|||||||||||||||||||||
+	    var ggMapsM = function(idElement){
+			
+	  		this.Id_Element = idElement;
+			this.directionsDisplay = null;
+			this.directionsService = new google.maps.DirectionsService();
+			this.map = null;
+			this.defZoom = 12;
+			this.markers = [];
+			this.RestCoors = null;
+			this.MiUbica = false;
+			this.iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
+			this.icons= [
+	
+		      'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+	
+		      
+	
+		      ref.F_img + '7-marker.png',  
+	
+		      
+	
+		      
+	
+		      ref.F_img + 'blue-marker.png',
+	
+		      
+	
+		      ref.F_img + '7-marker-D.png',
+	
+		      
+	
+		      'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+	
+		      
+	
+		      'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+	
+		      'http://maps.google.com/mapfiles/ms/icons/orange-dot.png',
+	
+		      'http://maps.google.com/mapfiles/ms/icons/purple-dot.png',
+	
+		      'http://maps.google.com/mapfiles/ms/icons/pink-dot.png',      
+	
+		      'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+	
+		    ],
+		    this.styles = [
+	
+			  {
+	
+			    stylers: [
+	
+			      { hue: "#00ffe6" },
+	
+			      { saturation: -20 }
+	
+			    ]
+	
+			  },{
+	
+			    featureType: "road",
+	
+			    elementType: "geometry",
+	
+			    stylers: [
+	
+			      { lightness: 100 },
+	
+			      { visibility: "simplified" }
+	
+			    ]
+	
+			  },{
+	
+			    featureType: "road",
+	
+			    elementType: "labels",
+	
+			    stylers: [
+	
+			      { visibility: "off" }
+	
+			    ]
+	
+			  }
+	
+			];
+			this.tempMarker={XX:0, YY:0};
+		
+	
+			this.initialize= function (nRest, xx, yy) {
+				
+				this.tempMarker={XX:0, YY:0};
+	
+				var THIS = this;
+				//this.get_MapHeight();
+				directionsDisplay = new google.maps.DirectionsRenderer();
+				var ownPos = null;			
+	
+				if(navigator.geolocation) {
+	
+		    		navigator.geolocation.getCurrentPosition(function(position) {
+	
+		      			ownPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);	                
+	
+		                var map_canvas = document.getElementById(THIS.Id_Element);
+	
+				        var map_options = {
+				          center: ownPos,
+				          zoom: THIS.defZoom,
+				          /*disableDefaultUI: true,*/
+				          streetViewControl: true/*,
+				          mapTypeId: google.maps.MapTypeId.ROADMAP*/
+				        };		
+	
+				        THIS.map = new google.maps.Map(map_canvas, map_options);		
+	
+				        /*var homeControlDiv = document.createElement('div');	
+				  		var homeControl = new THIS.HomeControl(homeControlDiv, THIS.map, THIS);	
+				  		homeControlDiv.index = 1;	
+				  		THIS.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);*/
+		  		
+	
+				  		google.maps.event.addListener(THIS.map, 'click', function(event) {
+	
+							//app.btn_switch('#i_Store', true);
+	
+				        	THIS.deleteMarkers();		
+	
+				  			THIS.addMarker(event.latLng, 'Cedis', null, true);		
+	
+				      		THIS.DataLocation(event.latLng.lat(), event.latLng.lng(), '.direccion_D');			      		
+	
+				      		THIS.tempMarker.XX=event.latLng.lat();
+	
+				      		THIS.tempMarker.YY=event.latLng.lng();			      		
+	
+				      		//console.log(THIS.tempMarker.XX + ' | ' + THIS.tempMarker.YY);
+	
+				  		});			  		
+	
+				  		
+	
+		    	}, function() {
+	
+		      		handleNoGeolocation(true);
+		    	});
+	
+	  			} else {
+	
+		    		handleNoGeolocation(false);
+		  		}
+	
+	  		};
+	
+			this.get_MapHeight = function(){
+	
+	
+	
+				$('#' + this.Id_Element).css('height', ($.mobile.getScreenHeight() - $('#FFTR').height() ) - 80);
+	
+				
+	
+				console.log('5AANNNN === '+$.mobile.getScreenHeight() + ' - ' + $('#FFTR').height());
+	
+				
+	
+			};
+	
+			this.HomeControl= function(controlDiv, map, _THIS) {
+	
+				
+	
+				var THIS = _THIS;
+	
+	
+	
+		  		controlDiv.style.padding = '5px';
+	
+	
+	
+			  	// Set CSS for the control border
+	
+			  	var controlUI = document.createElement('div');
+	
+			  	controlUI.style.backgroundColor = 'white';
+	
+			  	controlUI.style.borderStyle = 'solid';
+	
+			  	controlUI.style.borderWidth = '2px';
+	
+			  	controlUI.style.cursor = 'pointer';
+	
+			  	controlUI.style.textAlign = 'center';
+	
+			  	controlUI.title = 'Click to set the map to Home';
+	
+			  	controlDiv.appendChild(controlUI);
+	
+	
+	
+			  	// Set CSS for the control interior
+	
+			  	var controlText = document.createElement('div');
+	
+			  	controlText.style.fontFamily = 'Arial,sans-serif';
+	
+			  	controlText.style.fontSize = '12px';
+	
+			  	controlText.style.paddingLeft = '4px';
+	
+			  	controlText.style.paddingRight = '4px';
+	
+			  	controlText.innerHTML = '<span class="fa fa-bullseye fa-2x"></span>';
+	
+			  	controlUI.appendChild(controlText);
+	
+	
+	
+			  	// Setup the click event listeners: simply set the map to
+	
+			  	// Chicago
+	
+			  	google.maps.event.addDomListener(controlUI, 'click', function() {
+	
+				    //map.setCenter(chicago);
+	
+				    //alert('Home');
+	
+				    THIS.Get_Ubicacion();
+	
+				    map.setZoom(THIS.defZoom + 1); 
+	
+			  	});
+	
+			};
+	
+			this.RestControl= function(controlDiv, map) {
+	
+	
+	
+				// Set CSS styles for the DIV containing the control
+	
+			  	// Setting padding to 5 px will offset the control
+	
+			  	// from the edge of the map
+	
+			  	controlDiv.style.padding = '5px';
+	
+	
+	
+			  	// Set CSS for the control border
+	
+			  	var controlUI = document.createElement('div');
+	
+			  	controlUI.style.backgroundColor = 'white';
+	
+			  	controlUI.style.borderStyle = 'solid';
+	
+			  	controlUI.style.borderWidth = '2px';
+	
+			  	controlUI.style.cursor = 'pointer';
+	
+			  	controlUI.style.textAlign = 'center';
+	
+			  	controlUI.title = 'Click to set the map to Home';
+	
+			  	controlDiv.appendChild(controlUI);
+	
+	
+	
+			  	// Set CSS for the control interior
+	
+			  	var controlText = document.createElement('div');
+	
+			  	controlText.style.fontFamily = 'Arial,sans-serif';
+	
+			  	controlText.style.fontSize = '12px';
+	
+			  	controlText.style.paddingLeft = '4px';
+	
+			  	controlText.style.paddingRight = '4px';
+	
+			  	controlText.innerHTML = '<b>Restaurant</b>';
+	
+			  	controlUI.appendChild(controlText);
+	
+	
+	
+			  	// Setup the click event listeners: simply set the map to
+	
+			  	// Chicago
+	
+			  	google.maps.event.addDomListener(controlUI, 'click', function() {
+	
+				    map.setCenter(RestCoors);
+	
+				    map.setZoom(this.defZoom);
+	
+			  	});
+	
+			};
+	
+			this.RutaControl= function(controlDiv, map) {
+	
+	
+	
+				// Set CSS styles for the DIV containing the control
+	
+			  	// Setting padding to 5 px will offset the control
+	
+			  	// from the edge of the map
+	
+			  	controlDiv.style.padding = '5px';
+	
+	
+	
+			  	// Set CSS for the control border
+	
+			  	var controlUI = document.createElement('div');
+	
+			  	controlUI.style.backgroundColor = 'white';
+	
+			  	controlUI.style.borderStyle = 'solid';
+	
+			  	controlUI.style.borderWidth = '2px';
+	
+			  	controlUI.style.cursor = 'pointer';
+	
+			  	controlUI.style.textAlign = 'center';
+	
+			  	controlUI.title = 'Click to set the map to Home';
+	
+			  	controlDiv.appendChild(controlUI);
+	
+	
+	
+			  	// Set CSS for the control interior
+	
+			  	var controlText = document.createElement('div');
+	
+			  	controlText.style.fontFamily = 'Arial,sans-serif';
+	
+			  	controlText.style.fontSize = '12px';
+	
+			  	controlText.style.paddingLeft = '4px';
+	
+			  	controlText.style.paddingRight = '4px';
+	
+			  	controlText.innerHTML = '<b>Ruta</b>';
+	
+			  	controlUI.appendChild(controlText);
+	
+	
+	
+			  	// Setup the click event listeners: simply set the map to
+	
+			  	// Chicago
+	
+			  	google.maps.event.addDomListener(controlUI, 'click', function() {
+	
+	
+	
+				    this.Get_Ruta();
+	
+				    this.deleteMarkers();
+	
+				    //AAA();
+	
+			  	});
+	
+			};
+	
+			this.loadMarkers= function(){
+	
+				
+	
+				var THIS = this;
+	
+				
+	
+				$.getJSON('js/dTiendas.js', function (data) {
+	
+	 
+	
+	        		//alert(data);
+	
+	 
+	
+	        		$.each(data, function (index, value) {
+	
+	        			//<li><img src="img/1.png" alt="Landscape 5" class="enfocada"></li>
+	
+	        			
+	
+	        			THIS.addMarker(new google.maps.LatLng(value.xx, value.yy), '7-Eleven', 1, false);
+	
+	        			console.log('Agregando... ' + index);
+	
+	                	
+	
+	        		});
+	
+	     		});
+	
+				
+	
+			};
+	
+			this.loadRemoteMarkers = function(){
+	
+				
+	
+				var THIS = this;
+	
+				
+	
+				console.log('Loadding Stores..');
+	
+				
+	
+				$.post(ref.F_serv, {
+	
+				    request_type:"s_store"
+	
+				  },
+	
+				  function(data,status){
+	
+				  	console.log('Loadding Stores..');
+	
+	        		
+	
+	        		$.each(data.stores, function (index, value) {
+	
+	        			console.log('Loadding Stores..');
+	
+	        			//<li><img src="img/1.png" alt="Landscape 5" class="enfocada"></li>
+	
+	        			
+	
+	        			THIS.addMarker(new google.maps.LatLng(value.xx, value.yy), '7-Eleven', 1, false, value.idTienda, value.name);
+	
+	        			console.log('Agregando... ' + index);
+	
+	                	
+	
+	        		});
+	
+				    
+	
+				    
+	
+				  }, 'json');		
+	
+			};
+	
+		  	this.handleNoGeolocation = function(errorFlag) {
+	
+		  		if (errorFlag) {
+	
+			    	var content = 'Error: The Geolocation service failed.';
+	
+			  	} else {
+	
+				    var content = 'Error: Your browser doesn\'t support geolocation.';
+	
+			  	}
+	
+	
+	
+			  	var options = {
+	
+				    map: map,
+	
+				    position: new google.maps.LatLng(60, 105),
+	
+				    content: content
+	
+			  	};
+	
+	
+	
+			  	var infowindow = new google.maps.InfoWindow(options);			  
+	
+				  
+	
+			  	//map.setCenter(options.position);
+	
+			};  		
+	
+			this.deleteMarkers= function () {
+	
+	  		if(this.markers.length > 0)
+	
+				{
+	
+	  			this.setAllMap(null);  			
+	
+					this.markers = [];
+	
+				}
+	
+			};
+	
+			this.addMarker = function (Position, Title, Type, Save, _ID, _Name) {
+	
+				//alert(Position);
+	
+				var THIS = this;
+	
+				
+	
+				var marker;
+	
+				
+	
+				if(Type != null){
+	
+					
+	
+					marker = new google.maps.Marker({
+	
+						position: Position, 
+	
+						map: this.map,
+	
+						title: Title,
+	
+						animation: google.maps.Animation.DROP,
+	
+						icon : this.icons[Type],
+	
+											
+	
+						id: _ID,
+	
+						name: _Name,
+	
+						iconFlag: 0
+	
+					});
+	
+				}
+	
+				else{
+	
+					marker = new google.maps.Marker({
+	
+						position: Position, 
+	
+						map: this.map,
+	
+						title: Title,
+	
+						animation: google.maps.Animation.DROP,
+	
+						
+	
+						id: _ID,
+	
+						name: _Name
+	
+					});
+	
+				}			
+	
+				
+	
+				/*google.maps.event.addListener(marker, 'click', function() {
+	
+					console.log('Click on It ' + marker.position.lat() + ' | ' + marker.position.lng() + ' | ID: ' + marker.id);
+		
+					if(this.iconFlag == 0){
+	
+						marker.iconFlag = 1;
+	
+						console.log(marker.iconFlag + ' - - - ICON FLAG');
+	
+						marker.setIcon(THIS.icons[3]);
+	
+						
+	
+						if(DB.deleteMarkers.indexOf(marker) == -1){
+	
+							//Si no Existe en la Lista ....
+	
+							DB.deleteMarkers.push(marker);
+	
+							//
+	
+					 		
+	
+					 		app.btn_switch('#d_Store', true);
+	
+					 		
+	
+					 		console.log(DB.deleteMarkers.length);
+	
+					 		
+					 		app.btn_switch('#s_ProductsInStore', true);
+	
+					 		
+	
+						}
+	
+						if(L_prdct.ID_PRODUCT != -1 ){
+	
+							app.btn_switch('#i_ProductToStore', true);
+	
+						}
+	
+					}
+	
+					else{
+	
+						marker.iconFlag = 0;
+	
+						console.log(marker.iconFlag + ' - - - ICON FLAG');
+	
+						marker.setIcon(THIS.icons[1]);					
+	
+						
+	
+						if(DB.deleteMarkers.indexOf(marker) != -1){
+	
+							//Si no Existe en la Lista ....
+	
+							//DB.deleteMarkers.push(marker);
+	
+							//
+	
+							console.log(DB.deleteMarkers.indexOf(marker) + ' - - - ');
+	
+							DB.deleteMarkers.splice(DB.deleteMarkers.indexOf(marker), 1);			 		
+	
+					 		
+	
+					 			app.btn_switch('#d_Store', false);
+	
+					 			console.log(DB.deleteMarkers.length);
+	
+					 		
+	
+						 		app.btn_switch('#s_ProductsInStore', false);				 						 		
+	
+						}
+	
+					}
+	
+					
+	
+					if(DB.deleteMarkers.length > 1){
+	
+						app.btn_switch('#s_ProductsInStore', false);
+	
+						app.btn_switch('#d_Store', true);						
+	
+					}
+	
+					else if(DB.deleteMarkers.length == 1){
+	
+						app.btn_switch('#d_Store', true);
+	
+						app.btn_switch('#s_ProductsInStore', true);					
+	
+					}
+	
+					else{
+	
+						app.btn_switch('#d_Store', false);
+	
+					}
+	
+				});*/
+	
+	
+				if(Save){
+	
+					this.markers.push(marker);
+	
+				}
+	
+			};
+	
+			this.setAllMap = function(map) {
+	
+		  		for (var i = 0; i < this.markers.length; i++) {
+	
+	    		this.markers[i].setMap(map);
+	
+	  			}
+	
+			};
+	
+			this.Get_Ubicacion= function() {
+	
+				
+	
+				var THIS = this;
+	
+	
+	
+				var pos = null;
+	
+	
+	
+			  	if(navigator.geolocation) {
+	
+		    		navigator.geolocation.getCurrentPosition(function(position) {
+	
+	
+	
+		      		pos = new google.maps.LatLng(position.coords.latitude,
+	
+		                                       position.coords.longitude);
+	
+		                                       
+	
+		      		THIS.map.setCenter(pos);
+	
+		      		
+	
+		    	}, function() {
+	
+		      		handleNoGeolocation(true);      		
+	
+	
+	
+		    	});
+	
+	  			} else {
+	
+		    			// Browser doesn't support Geolocation
+	
+		    		handleNoGeolocation(false);
+	
+		  		}
+	
+	
+	
+		  		//return pos;
+	
+			};
+	
+			this.i_PuntoA = function() {
+	
+	
+	
+				var pos = null;
+	
+	
+	
+			  	if(navigator.geolocation) {
+	
+		    		navigator.geolocation.getCurrentPosition(function(position) {
+	
+	
+	
+		      		pos = new google.maps.LatLng(position.coords.latitude,
+	
+		                                       position.coords.longitude);
+	
+	
+	
+		      		this.DataLocation(pos.lat(), pos.lng(), '.direccion_D');
+	
+	
+	
+	
+	
+		      		var start = pos;
+	
+				  	var end = RestCoors;
+	
+				  	var request = {
+	
+				      	origin:start,
+	
+				      	destination:end,
+	
+				      	travelMode: google.maps.TravelMode.DRIVING
+	
+				  	};
+	
+				  	this.directionsService.route(request, function(response, status) {
+	
+					    if (status == google.maps.DirectionsStatus.OK) {
+	
+				      	directionsDisplay.setDirections(response);
+	
+				    	}
+	
+				  	});
+	
+		      		
+	
+		    	}, function() {
+	
+		      		handleNoGeolocation(true);      		
+	
+	
+	
+		    	});
+	
+	  			} else {
+	
+		    			// Browser doesn't support Geolocation
+	
+		    		handleNoGeolocation(false);
+	
+		  		}
+	
+			};
+	
+			this.Get_Ruta = function(){
+	
+	
+	
+				if(this.markers.length <= 0 && this.MiUbica == false)
+	
+				{
+	
+					//alert('INI');
+	
+					this.MiUbica = true;
+	
+					this.i_PuntoA();
+	
+	
+	
+				}
+	
+				else{
+	
+	
+	
+				  	var start = this.markers[0].position;
+	
+				  	var end = RestCoors;
+	
+				  	var request = {
+	
+				      	origin:start,
+	
+				      	destination:end,
+	
+				      	travelMode: google.maps.TravelMode.DRIVING
+	
+				  	};
+	
+				  	this.directionsService.route(request, function(response, status) {
+	
+					    if (status == google.maps.DirectionsStatus.OK) {
+	
+				      	directionsDisplay.setDirections(response);
+	
+				    	}
+	
+				  	});
+	
+			  	}
+	
+			};
+	
+			this.setIconToList = function(Lista, Icon){
+	
+				
+	
+				$.each(Lista, function (index, value) {
+	
+	        			//<li><img src="img/1.png" alt="Landscape 5" class="enfocada"></li>
+	
+	        			
+	
+	        			console.log('REmoving... ' + index + ' ');// + value.getPosition().lat());
+	
+	        			
+	
+	        			//value.setVisible(false);
+	
+	        			var marker = new google.maps.Marker(value);
+	
+	        			
+	
+	        			marker.iconFlag = 1;
+	
+	        			//marker.onclick();
+	
+	        			google.maps.event.trigger(marker, 'click');
+	
+	        			//GEvent.trigger(marker, 'click');
+	
+	        			console.log(marker.iconFlag + ' - - - ICON FLAG');
+	
+	        			marker.setIcon(Icon);
+	
+	                	
+	
+	        		});
+	
+				
+	
+			};
+	
+			this.DataLocation = function (xx, yy, UpdateIn) {
+	
+	
+	
+				var DIR = {Numero: 0,
+	
+					Calle: 'NO',
+	
+					Colonia: 'NO',
+	
+					Municipio: 'NO',
+	
+					Estado: 'NO',
+	
+					Pais: 'NO',
+	
+					CP: 0};
+	
+			
+	
+				$.post('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + xx + ', ' + yy + '&sensor=true', 
+	
+				{
+	
+	
+	
+				}, function(datos){
+	
+	
+	
+					for(var i=0; i<datos.results[0].address_components.length; i++)
+	
+					{
+	
+						if(datos.results[0].address_components[i].types[0] == 'street_number')
+	
+							DIR.Numero = datos.results[0].address_components[i].long_name;					
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "route")
+	
+							DIR.Calle = datos.results[0].address_components[i].long_name;
+	
+						
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "neighborhood")
+	
+							DIR.Colonia = datos.results[0].address_components[i].long_name;
+	
+						
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "administrative_area_level_2" ||
+	
+							datos.results[0].address_components[i].types[0] == "locality")
+	
+						{
+	
+							DIR.Municipio = datos.results[0].address_components[i].long_name;
+	
+						}
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "administrative_area_level_1")
+	
+						{
+	
+							DIR.Estado = datos.results[0].address_components[i].long_name;
+	
+							DIR.Estado_2 = datos.results[0].address_components[i].short_name;
+	
+						}	
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "country")
+	
+						{
+	
+							DIR.Pais= datos.results[0].address_components[i].long_name;
+	
+							DIR.Pais_2= datos.results[0].address_components[i].short_name;
+	
+						}
+	
+	
+	
+						if(datos.results[0].address_components[i].types[0] == "postal_code")
+	
+							DIR.CP= datos.results[0].address_components[i].long_name;
+	
+	
+	
+					}
+	
+	
+	
+	
+	
+					if(UpdateIn != null && UpdateIn != '')
+	
+					{
+	
+						$(UpdateIn + ' .L1').text(DIR.Calle + ' #' + DIR.Numero  + ',');
+	
+						$(UpdateIn + ' .L2').text('Col. ' + DIR.Colonia + ',');
+	
+						//$(UpdateIn + ' .L3').text(DIR.Estado_2 + ', ' + DIR.Pais_2);
+	
+						$(UpdateIn + ' .L3').text(DIR.Municipio + ', ' + DIR.Estado_2 + ', ' + DIR.Pais_2);
+	
+					}
+	
+	
+	
+					/*alert(DIR.Calle + ' #' + DIR.Numero + ', ' + DIR.Colonia + ', ' + DIR.Municipio + ', ' + 
+	
+						DIR.Estado + ', ' + DIR.Pais + ', ' + DIR.CP);*/			
+	
+				
+	
+				}).error(function(){
+	
+					alert('error... ohh no!');
+	
+				});
+	
+	
+	
+				return DIR;
+	
+			};
+
+	};
+	    //|||||||||||||||||||||||||||||||||||
+	    
+	    
+	</script>
+	
+	
+</body>
+</html>

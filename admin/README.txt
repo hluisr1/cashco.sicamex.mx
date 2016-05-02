@@ -1,0 +1,58 @@
+Cube Bootstrap 3 Theme - version 1.3
+
+CSS:
+- Theme includes SASS version (SCSS) and also compiled css filed.
+- SCSS folder includes only SASS version with CodeKit config included.
+- LESS folder includes only LESS version with CodeKit config included. It’s port from SCSS version.
+- CSS folder includes compiled SASS version for deployment.
+
+CSS Styles (in css folder):
+- The /compiled folder includes all major styles of the theme.
+- The /bootstrap folder includes the bootstrap files. Bootsrap libs are not changed.
+- The /lib folder includes the styles for the plugins.
+- Added classes .hidden-xxs and .visible-xss for showing/hiding content on 420px's devices and smaller.
+
+SCSS & LESS Folder:
+- Bootstrap folder includes Bootstrap SASS (or LESS) version.
+- Theme folder includes thw whole theme files, which should be self explanatory.
+
+Scripts:
+- Javascript code for every page is located at the end of each html template file, so you don't have to include all plugins for every page.
+
+Icons:
+- FontAwesome icons
+- Glyphicons - if you move the location of bootstrap files, you need to change the relative path to icons in it.
+
+Html:
+- indexTEMPLATE.html includes empty template without content in the main content area.
+- all other files includes content based on each type.
+- errors - there are more versions of error files and each error file has more versions of images.
+- logins - there are two version of logins.
+
+Skins - Theme has 8 possible skins:
+- Default
+- White/Green - add class "theme-white" to body element of every page
+- Blue Gradient - add class "theme-blue-gradient" to body element of every page
+- Amethyst - add class "theme-amethyst" to body element of every page
+- Blue - add class "theme-blue" to body element of every page
+- Red - add class "theme-red" to body element of every page
+- White/Blue - add class "theme-whbl" to body element of every page
+- Green Sea - add class "theme-turquoise" to body element of every page
+
+Layout Options:
+- Fixed Header - add class "fixed-header" to body element of every page
+- Fixed Footer - add class "fixed-footer" to body element of every page
+- Fixed Left Menu - add class "fixed-leftmenu" to body element of every page
+- Boxed Layout - add class "boxed-layout" to body element of every page
+- RTL Layout (Right-to-Left) - add class "rtl" to body element of every page
+
+Change Log:
+v 1.3 - 2015/01/13
+- Small CSS bugfix for date and time pickers - changes only in theme_styles.css
+
+v 1.2 - 2015/01/05
+- Small fix for Less port
+- Fix for DropzoneJS implementation in AngularJS version
+
+v 1.1 - 2014/12/23
+- Fix for dropdown menu in Safari - changes only in CSS files

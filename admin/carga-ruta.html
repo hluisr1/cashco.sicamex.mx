@@ -1,0 +1,920 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>SICAMEX - Carga Ruta</title>
+	
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+	
+	<!-- RTL support - for demo only -->
+	<script src="js/demo-rtl.js"></script>
+	<!-- 
+	If you need RTL support just include here RTL CSS file <link rel="stylesheet" type="text/css" href="css/libs/bootstrap-rtl.min.css" />
+	And add "rtl" class to <body> element - e.g. <body class="rtl"> 
+	-->
+	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="css/libs/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="css/libs/nanoscroller.css" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="css/compiled/theme_styles.css" />
+
+	<!-- this page specific styles -->
+	<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/jquery-jvectormap-1.2.2.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/weather-icons.css" type="text/css" />
+	
+	<!-- Favicon -->
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon" />
+
+	<!-- google font libraries -->
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+	
+	
+	<!--NOTIFICACION	this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-default.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-growl.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-bar.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-attached.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-other.css"/>
+	<link rel="stylesheet" type="text/css" href="css/libs/ns-style-theme.css"/>
+	
+	<!--MODAL this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="css/libs/nifty-component.css"/>
+	
+	<!--FORM-ELEMENTS this page specific styles -->
+	<link rel="stylesheet" href="css/libs/datepicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/daterangepicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/bootstrap-timepicker.css" type="text/css" />
+	<link rel="stylesheet" href="css/libs/select2.css" type="text/css" />
+	
+	<!--TABLES this page specific styles -->
+	<link rel="stylesheet" type="text/css" href="css/libs/dataTables.fixedHeader.css">
+	<link rel="stylesheet" type="text/css" href="css/libs/dataTables.tableTools.css">
+	
+	<!--MORRIS this page specific styles -->
+	<link rel="stylesheet" href="css/libs/morris.css" type="text/css" />
+	
+	<!-- this page specific styles -->
+	<style type="text/css">
+	/* Set a size for our map container, the Google Map will take up 100% of this container */
+	.map-content {
+	    width: 100%;
+	    height: 300px;
+	}
+	.map-content-reg {
+	    width: 100%;
+	    height: 200px;
+	}
+	</style>
+	
+	
+
+	<!--[if lt IE 9]>
+		<script src="js/html5shiv.js"></script>
+		<script src="js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	
+	<!-- Standard Bootstrap Modal Are You Sure to Detele ?? -->
+	<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 1080px;">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 id="HeadEDT" class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					
+					<!--<form role="form">
+												
+						<div class="form-group">-->
+							
+							<!--<h4 id="DescRecord1"></h4>
+							<h3 id="DescRecord2"></h3>
+							<h2 id="DescRecord3"></h2>-->
+							
+							
+							
+							<button type="button" class="btn btn-primary CRUD_C" id="edtADD_P"><span class="fa fa-plus-circle"></span> AGREGA PRODUCTO</button>
+							<br />
+							<br />
+							
+							<!--PRODUCTO-->
+							<div id="edtDIV_Productos" class="form-group">
+								
+								<!--<div class="pruductoField col-xs-12">
+									<div class="form-group col-xs-3">
+										<label>Producto</label>
+										<select style="width:200px" data="idProducto">
+											<option value="0">Escoje un Producto</option>
+										</select>
+									</div>
+									
+									<div class="form-group col-xs-2">
+										<label>Cantidad</label>
+										<input type="number" class="form-control" data="Cantidad" placeholder="Cantidad" value="1">
+									</div>
+									
+									<div class="form-group col-xs-2">
+										<label>Total</label>
+										<input class="form-control" data="exampleInputFile" type="text" placeholder="Disabled input here..." disabled="" value="$0.00">																
+									</div>
+									
+									<div class="form-group col-xs-1">
+										<label>Eliminar</label>
+										<button type="button" style="margin-left: 10px;" class="form-control btn btn-danger fa fa-minus" id="delProduct" ></button>
+									</div>
+												
+								</div>-->							
+								
+							</div>
+							
+							<div class="col-xs-12" id="edttotalContainer">
+								<div class="form-group col-xs-3">
+									
+								</div>
+								
+								<div class="form-group col-xs-1">
+									
+								</div>
+								
+								<div class="form-group col-xs-3">
+									
+								</div>
+								
+								<div class="form-group col-xs-1">																
+								</div>																	
+							
+								
+								<div class="form-group col-xs-2">
+									<label> &nbsp; </label>
+									<input class="form-control" id="edtTTL" type="text" placeholder="Disabled input here..." disabled="" value="$0.00">																
+								</div>																	
+							</div>
+													
+							
+						<!--</div>
+						
+					</form>-->
+					
+					
+				</div>
+				<br />
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger edtclsEP CRUD_E" id="edtCANCELA" idRegistro = "" data-dismiss="modal"><span class="fa fa-trash-o"></span> Cancelar</button>
+					<button type="button" class="btn btn-success CRUD_C" id="edtGUARDA_EP" idRegistro = "" ><span class="fa fa-save"></span> Guardar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+		
+	<!-- Standard Bootstrap Modal Are You Sure to Detele ?? -->
+	<div class="modal fade" id="myModalAsk" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">ESTA SEGURO DE ELIMINAR ÉSTE PEDIDO ??</h4>
+				</div>
+				<div class="modal-body">
+					
+					<form role="form">
+												
+						<div class="form-group">
+							
+							<h4 id="DescRecord1"></h4>
+							<h3 id="DescRecord2"></h3>
+							<h2 id="DescRecord3"></h2>													
+							
+						</div>									
+						
+					</form>					
+					
+					
+				</div>
+				<div class="modal-footer">
+					
+					<button type="button" class="btn btn-danger CRUD_D" id="ELIMINA_EP" idRegistro = "" data-dismiss="modal"><span class="fa fa-trash-o"></span> Eliminar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+		
+	<!-- Standard Bootstrap Modal Are You Sure to Detele ?? -->
+	<div class="modal fade" id="myModalADD" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="width: 100%;">
+		<div class="modal-dialog" style="width: 1080px;">
+			<div class="modal-content" >
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">CARGA UN PEDIDO.</h4>
+				</div>
+				<div class="modal-body">
+					
+					<!--<form role="form">
+												
+						<div class="form-group">-->
+							
+							<!--<h4 id="DescRecord1"></h4>
+							<h3 id="DescRecord2"></h3>
+							<h2 id="DescRecord3"></h2>-->
+							
+							<div class="form-group form-group-select2">
+							
+							<select style="width:400px" id="Clientes">
+								<option value="0">Escoje un Cliente</option>
+							</select>
+							</div>
+							
+							<button type="button" class="btn btn-primary" id="ADD_P"><span class="fa fa-plus-circle"></span> AGREGA PRODUCTO</button>
+							<br />
+							<br />
+							
+							<!--PRODUCTO-->
+							<div id="DIV_Productos" class="form-group">
+								
+								<!--<div class="pruductoField col-xs-12">
+									<div class="form-group col-xs-3">
+										<label>Producto</label>
+										<select style="width:200px" data="idProducto">
+											<option value="0">Escoje un Producto</option>
+										</select>
+									</div>
+									
+									<div class="form-group col-xs-2">
+										<label>Cantidad</label>
+										<input type="number" class="form-control" data="Cantidad" placeholder="Cantidad" value="1">
+									</div>
+									
+									<div class="form-group col-xs-2">
+										<label>Total</label>
+										<input class="form-control" data="exampleInputFile" type="text" placeholder="Disabled input here..." disabled="" value="$0.00">																
+									</div>
+									
+									<div class="form-group col-xs-1">
+										<label>Eliminar</label>
+										<button type="button" style="margin-left: 10px;" class="form-control btn btn-danger fa fa-minus" id="delProduct" ></button>
+									</div>
+												
+								</div>-->							
+								
+							</div>
+							
+							<div class="col-xs-12" id="totalContainer">
+								<div class="form-group col-xs-3">
+									
+								</div>
+								
+								<div class="form-group col-xs-1">
+									
+								</div>
+								
+								<div class="form-group col-xs-3">
+									
+								</div>
+								
+								<div class="form-group col-xs-1">																
+								</div>																	
+							
+								
+								<div class="form-group col-xs-2">
+									<label> &nbsp; </label>
+									<input class="form-control" id="TTL" type="text" placeholder="Disabled input here..." disabled="" value="$0.00">																
+								</div>																	
+							</div>
+													
+							
+						<!--</div>
+						
+					</form>-->
+					
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger clsEP CRUD_E" id="CANCELA" idRegistro = "" data-dismiss="modal"><span class="fa fa-trash-o"></span> Cancelar</button>
+					<button type="button" class="btn btn-success CRUD_C" id="GUARDA_EP" idRegistro = "" ><span class="fa fa-save"></span> Guardar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	
+		
+	<div id="theme-wrapper">
+		<header class="navbar" id="header-navbar">
+			<div class="container">
+				<a href="index.html" id="logo" class="navbar-brand">
+					<img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+					<img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+					<img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+				</a>
+				
+				<div class="clearfix">
+				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">Toggle Modulos</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				
+				<div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+					<ul class="nav navbar-nav pull-left">
+						<li>
+							<a class="btn" id="make-small-nav">
+								<i class="fa fa-bars"></i>
+							</a>
+						</li>
+						<!--1496<li class="dropdown hidden-xs">
+							<a class="btn dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-bell"></i>
+								<span class="count">8</span>
+							</a>
+							<ul class="dropdown-menu notifications-list">
+								<li class="pointer">
+									<div class="pointer-inner">
+										<div class="arrow"></div>
+									</div>
+								</li>
+								<li class="item-header">You have 6 new notifications</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-comment"></i>
+										<span class="content">New comment on ‘Awesome P...</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-plus"></i>
+										<span class="content">New user registration</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-envelope"></i>
+										<span class="content">New Message from George</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-shopping-cart"></i>
+										<span class="content">New purchase</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-eye"></i>
+										<span class="content">New order</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item-footer">
+									<a href="#">
+										View all notifications
+									</a>
+								</li>
+							</ul>
+						</li>-->
+						
+					</ul>
+				</div>
+				
+				<div class="nav-no-collapse pull-right" id="header-nav">
+					<ul class="nav navbar-nav pull-right">
+						
+						<li class="hidden-xxs">
+							<a class="btn">
+								<i class="fa fa-power-off"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</header>
+		<div id="page-wrapper" class="container">
+			<div class="row">
+				<div id="nav-col">
+					<section id="col-left" class="col-left-nano">
+						<div id="col-left-inner" class="col-left-nano-content">
+							<div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
+								<img alt="" src="img/samples/scarlet-159.png" />
+								<div class="user-box">
+									<span class="name">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+											Scarlett J. 
+											<i class="fa fa-angle-down"></i>
+										</a>
+										<ul class="dropdown-menu">
+											<li><a href="user-profile.html"><i class="fa fa-user"></i>Perfil</a></li>
+											<li><a href="#"><i class="fa fa-power-off"></i>Cerrar Sesión</a></li>
+										</ul>
+									</span>
+									<span class="status">
+										<i class="fa fa-circle"></i> Online
+									</span>
+								</div>
+							</div>
+							
+							<div id="frame_menu" page="carga-ruta.html"></div>
+						
+						</div>
+					</section>
+					<div id="nav-col-submenu"></div>
+				</div>
+				<div id="content-wrapper">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="row">
+								<div class="col-lg-12">
+									<div id="content-header" class="clearfix">
+										<div class="pull-left">																					
+											<h1>Carga Ruta</h1>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							
+							<!--REGISTROS-->
+							<div class="row" id="REG">
+								
+								<!--<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+									<div class="main-box clearfix profile-box-contact">
+										<div class="main-box-body clearfix">
+											<div class="profile-box-header gray-bg clearfix">
+												<img src="img/samples/kunis-300.jpg" alt="" class="profile-img img-responsive" />
+												<h2>Mila Kunis</h2>
+												<div class="job-position">
+													Actress
+												</div>
+												<ul class="contact-details">
+													<li>
+														<i class="fa fa-map-marker"></i> San Francisco
+													</li>
+													<li>
+														<i class="fa fa-envelope"></i> mila@kunis.com
+													</li>
+													<li>
+														<i class="fa fa-phone"></i> (823) 321-0192
+													</li>
+												</ul>
+											</div>
+											
+											<div class="profile-box-footer clearfix">
+												<a href="#">
+													<span class="value">44</span>
+													<span class="label">Messages</span>
+												</a>
+												<a href="#">
+													<span class="value">91</span>
+													<span class="label">Sales</span>
+												</a>
+												<a href="#">
+													<span class="value">3</span>
+													<span class="label">Projects</span>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								-->				
+								
+							</div>
+														
+							
+							<!--ALTA-->
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="main-box">
+										<header class="main-box-header clearfix">
+											<h2>Carga Ruta</h2>
+										</header>
+										
+										<!--INPUTS.DISPLAYS-->
+										<div class="main-box-body clearfix">
+											<form role="form">
+												
+												<!--INPUTS-->
+												<div class="col-md-4">
+
+                                                    <div class="form-group form-group-select2">
+                                                        <strong>Fecha de Carga: </strong>
+                                                        <label id="Fecha"></label>
+                                                    </div>
+													
+													<div class="form-group form-group-select2">
+														<label>* Ruta</label>
+														<select style="width:300px" id="idUsuario_VEN">
+															<option value="0">Escoje una Ruta</option>
+														</select>
+													</div>
+													
+													
+													
+													<div class="form-group form-group-select2">
+														<label>Tipo</label>
+														<select style="width:300px" id="idTipoCarga">
+															<option value="1">Normal</option>
+															<option value="2">Ajuste</option>
+														</select>
+													</div>
+													
+													<div class="form-group form-group-select2">
+														<label>Cargo A</label>
+														<select style="width:300px" id="idCargoA">
+															<option value="0">No Aplica</option>
+															<option value="1">Vendedor</option>
+															<option value="2">Almacen</option>
+															<option value="2">Empresa</option>
+														</select>
+													</div>
+													
+													<div class="form-group form-group-select2">
+														<label>Password</label>
+														<input id="refNoRef" maxlength="45" type="password" class="form-control inptRef" placeholder="Ingresa la clave de la persona que recibe el cargo">
+													
+													</div>
+													
+													
+													
+													<div class="form-group form-group-select2">
+														<label>Descripcion del Ajuste</label>
+														<textarea id="descCargo" maxlength="250" type="text" class="form-control inptRef" placeholder="DETALLE DE LA CAUSA ..."></textarea>
+													
+													</div>
+													
+													
+													
+													
+													
+																		
+													
+													
+													<button type="button" class="btn btn-success clsEP" id="BUSCAR">Consultar</button>
+													
+												</div>
+												
+												
+												
+											</form>
+											
+											<a style="display: none;" id="btnEDT" data-toggle="modal" href="#myModal" class="btn btn-primary mrg-b-lg">Standard Boostrap Modal</a>											
+											<a style="display: none;" id="btnASK" data-toggle="modal" href="#myModalAsk" class="btn btn-primary mrg-b-lg">Standard Boostrap Modal</a>
+											<a style="display: none;" id="btnADD" data-toggle="modal" href="#myModalADD" class="btn btn-primary mrg-b-lg">Standard Boostrap Modal</a>
+											<button style="display: none;" type="button" class="btn btn-success" id="SAVE">Guardar</button>
+																				
+										</div>
+                                        						
+										
+										
+									</div>
+								</div>
+							</div>
+							
+                            <!--ROWS.REQUERIDO.POR.EL.VENDEDOR-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main-box">
+                                        <header class="main-box-header clearfix">
+                                            <h2>CARGA RUTA</h2>
+                                        </header>
+
+                                        <!--ROWS-->
+                                        <div class="main-box-body clearfix">
+                                            <div class="table-responsive">
+                                                <table id="tablaDatos_LiqVenProd" class="table table-hover">
+                                                    <thead>
+                                                        <tr id="tblCarga">
+                                                            <!--<th>Ruta</th>-->
+                                                            <th>id</th>
+                                                            <th>Codigo</th>
+                                                            <th>Producto</th>
+                                                            <th>Precio</th>
+                                                            <th>Piezas</th>
+                                                            <!--<th>TOTAL</th>-->
+                                                            <th>Prop.</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tHeader">
+                                                        <!--<tr >
+                                        <td>AVG93</td>
+                                        <td>VILLALOBOS</td>
+                                        <td>GONZALEZ</td>
+                                        <td>ARTURO</td>
+                                        <td>0448117800993</td>
+                                        <td>arturovillgon@hotmail.com</td>
+                                        <td>MONTERREY</td>
+                                        <td>ADMINISTRADOR</td>
+                                        <td>2015/01/19</td>
+                                    </tr>
+                                    -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <br />
+                                            <button type="button" class="btn btn-primary btn-lg" id="EXPORTA_P_VENTA">Exportar</button>
+                                            <button type="button" class="btn btn-primary btn-lg" id="CARGAR_P_RUTA">CARGAR A LA RUTA</button>
+                                            <button type="button" class="btn btn-success btn-lg" id="Autho">Autorizar</button>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+							<!--ROWS.DETALLE.DE.PEDIDO-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main-box">
+                                        <header class="main-box-header clearfix">
+                                            <h2>HISTORIAL DE CARGAS</h2>
+                                        </header>
+
+                                        <!--INPUTS-->
+										<div class="col-md-4">
+												<br />
+												<div class="form-group form-group-select2">
+													<label>Ruta</label>
+													<select style="width:300px" id="idRuta_HIS">
+														<option value="0">Escoje una Ruta</option>
+													</select>
+												</div>
+																		
+												<div class="form-group form-group-select2">
+													<label for="Fecha_HIS">Día</label>
+													<div class="input-group" style="width:300px">
+														<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+														<input type="text" class="form-control" id="Fecha_HIS">
+													</div>
+												</div>
+												
+												<button type="button" class="btn btn-success clsEP" id="BUSCAR_HIS">Consultar</button>
+												
+											</div>
+											
+										<!--ROWS-->
+										<div class="main-box clearfix">
+								
+											<header class="main-box-header clearfix">
+												<!--<h2>CONSULTA VISITAS por Ruta</h2>-->
+												
+											</header>
+											
+											<div class="main-box-body clearfix">
+												<div class="table-responsive">
+													<table id="tablaDatos_HIS" class="table table-hover">
+														<thead>
+															<tr>
+																<th>ID.carga</th>
+																<th>Estatus</th>
+																<!--<th>Codigo</th>-->
+																<th>Producto</th>
+																<th>Pedido</th>
+																<th>Cargado</th>
+																<th>Diff</th>
+																<!--<th  >&nbsp;</th>-->
+																
+															</tr>
+														</thead>
+														<tbody id="tHeader">
+														
+														</tbody>
+													</table>
+													
+												</div>
+												
+												<br />
+												<button type="button" class="btn btn-primary btn-lg" id="EXPORTA_HIS">Exportar</button>
+											</div>
+										
+										</div>
+								                                
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+							<!--ROWS.INVENTARIO.DE.RUTA-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main-box">
+                                        <header class="main-box-header clearfix">
+                                            <h2>INVENTARIO RUTA</h2>
+                                        </header>
+                                        
+                                        <form role="form">
+												
+											<!--INPUTS-->
+											<div class="col-md-4">
+													
+													<br />
+													
+													<div class="form-group form-group-select2">
+														<label>Ruta</label>
+														<select style="width:300px" id="idRuta_INV">
+															<option value="0">Escoje una Ruta</option>
+														</select>
+													</div>
+														
+													<button type="button" class="btn btn-success clsEP" id="BUSCAR_INV">Consultar</button>
+													
+												</div>
+												
+											<!--ROWS-->
+											<div class="main-box clearfix">
+									
+												<header class="main-box-header clearfix">
+													<!--<h2>CONSULTA VISITAS por Ruta</h2>-->
+													
+												</header>
+												
+												<div class="main-box-body clearfix">
+													<div class="table-responsive">
+														<table id="tablaDatos_INV" class="table table-hover">
+															<thead>
+																<tr>
+																	<th>ID.Producto</th>																	
+																	<th>Codigo</th>
+																	<th>Producto</th>
+																	<th>Precio</th>
+																	<th>Piezas</th>
+																	<!--<th  >&nbsp;</th>-->
+																	
+																</tr>
+															</thead>
+															<tbody id="tHeader">
+															
+															</tbody>
+														</table>
+														
+													</div>
+													
+													<br />
+													<button type="button" class="btn btn-primary btn-lg" id="EXPORTA_C_VENTA">Exportar</button>
+												</div>
+											
+											</div>
+									
+											
+											
+										</form>
+										
+											
+											
+
+                                        
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+							
+
+                            <!--ROWS.ESTATUS.CARGA-->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="main-box">
+                                        <header class="main-box-header clearfix">
+                                            <h2>ESTATUS DE CARGA</h2>
+                                        </header>
+
+                                        <!--ROWS-->
+                                        <div class="main-box-body clearfix">
+                                            <div class="table-responsive">
+                                                <table id="tablaDatos_Estatus" class="table table-hover">
+                                                    <thead>
+                                                        <tr >
+                                                            <!--<th>Ruta</th>-->
+                                                            <th>id</th>
+                                                            <th>Ruta</th>
+                                                            <th>Estatus</th>
+                                                            <th>Fecha Alta</th>
+                                                            <th>Usuario</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tHeader">
+                                                        <!--<tr >
+                                    <td>AVG93</td>
+                                    <td>VILLALOBOS</td>
+                                    <td>GONZALEZ</td>
+                                    <td>ARTURO</td>
+                                    <td>0448117800993</td>
+                                    <td>arturovillgon@hotmail.com</td>
+                                    <td>MONTERREY</td>
+                                    <td>ADMINISTRADOR</td>
+                                    <td>2015/01/19</td>
+                                </tr>
+                                -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+							
+							
+							
+							
+						</div>
+					</div>
+					
+					<footer id="footer-bar" class="row">
+						<p id="footer-copyright" class="col-xs-12">
+							Powered by Sicamex.
+						</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- global scripts -->
+	<script src="js/demo-skin-changer.js"></script> <!-- only for demo -->
+	
+	<script src="js/jquery.js"></script>
+	<script src="js/framework.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/jquery.nanoscroller.min.js"></script>
+	
+	<script src="js/demo.js"></script> <!-- only for demo -->
+	
+	<!-- this page specific scripts -->
+	<script src="js/moment.min.js"></script>
+	<script src="js/jquery-jvectormap-1.2.2.min.js"></script>
+	<script src="js/jquery-jvectormap-world-merc-en.js"></script>
+	<script src="js/gdp-data.js"></script>
+	<script src="js/flot/jquery.flot.min.js"></script>
+	<script src="js/flot/jquery.flot.resize.min.js"></script>
+	<script src="js/flot/jquery.flot.time.min.js"></script>
+	<script src="js/flot/jquery.flot.threshold.js"></script>
+	<script src="js/flot/jquery.flot.axislabels.js"></script>
+	<script src="js/jquery.sparkline.min.js"></script>
+	<script src="js/skycons.js"></script>
+	
+	
+	
+	<!-- NOTIFICACION	this page specific scripts -->
+	<script src="js/modernizr.custom.js"></script>
+	<script src="js/snap.svg-min.js"></script> <!-- For Corner Expand and Loading circle effect only -->
+	<script src="js/classie.js"></script>
+	<script src="js/notificationFx.js"></script>
+	
+	<!--MODAL this page specific scripts -->
+	<script src="js/modalEffects.js"></script>
+	
+	<!--FORM-ELEMENTS this page specific scripts -->
+	<script src="js/jquery.maskedinput.min.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="js/moment.min.js"></script>
+	<script src="js/daterangepicker.js"></script>
+	<script src="js/bootstrap-timepicker.min.js"></script>
+	<script src="js/select2.min.js"></script>
+	<script src="js/hogan.js"></script>
+	<script src="js/typeahead.min.js"></script>
+	<script src="js/jquery.pwstrength.js"></script>
+	
+	<!--TABLE this page specific scripts -->
+	<script src="js/jquery.dataTables.js"></script>
+	<script src="js/dataTables.fixedHeader.js"></script>
+	<script src="js/dataTables.tableTools.js"></script>
+	<script src="js/jquery.dataTables.bootstrap.js"></script>
+	
+	<!--MORRIS this page specific scripts -->
+	<script src="js/jquery.knob.js"></script>
+	<script src="js/raphael-min.js"></script>
+	<script src="js/morris.js"></script>
+	
+	<!-- theme scripts -->
+	<script src="js/scripts.js"></script>
+	<script src="js/pace.min.js"></script>	
+	
+	
+	<script src="js/jquery.csv-0.71.js"></script>
+	
+	
+	<script src="../jWS/CargaRuta.js" type="text/javascript"></script>		
+	
+	
+	
+</body>
+</html>
