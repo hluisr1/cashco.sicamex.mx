@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - SICAMEX</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📦 SICAMEX</h1>
+        <div class="header-controls">
+            <button class="cedis-selector" onclick="openCedisModal()">
+                🏢 <span id="cedisDisplay">Todos los CEDIS</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="clientes.html" class="active">Clientes</a></li>
+            <li><a href="entregas.html">Entregas</a></li>
+            <li><a href="devoluciones.html">Devoluciones</a></li>
+            <li><a href="indicadores.html">Indicadores</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h2 class="page-title">Base de Datos de Clientes</h2>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Listado de Clientes</h3>
+                <button class="btn btn-primary" onclick="exportTableToCSV('tablaClientes', 'clientes.csv')">
+                    📥 Exportar CSV
+                </button>
+            </div>
+            <table id="tablaClientes">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Línea de Crédito</th>
+                    </tr>
+                </thead>
+                <tbody id="clientesBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal CEDIS -->
+    <div class="modal-overlay" id="cedisModal">
+        <div class="modal">
+            <h3 class="modal-title">Seleccionar CEDIS</h3>
+            <div class="cedis-list" id="cedisListContainer"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeCedisModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        async function loadClientes() {
+            const clientes = dataManager.getClientes();
+            const clientesBody = document.getElementById('clientesBody');
+            
+            clientesBody.innerHTML = clientes.map(cliente => {
+                return `
+                    <tr>
+                        <td>${cliente.id}</td>
+                        <td>${cliente.nombre}</td>
+                        <td>${cliente.tipo}</td>
+                        <td>${cliente.direccion}</td>
+                        <td>${cliente.telefono}</td>
+                        <td>${formatCurrency(cliente.credito)}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function refreshCurrentPage() {
+            loadClientes();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await dataManager.loadData();
+            loadClientes();
+            initNavigation();
+        });
+    </script>
+</body>
+</html>

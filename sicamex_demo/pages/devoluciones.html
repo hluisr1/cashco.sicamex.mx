@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devoluciones - SICAMEX</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📦 SICAMEX</h1>
+        <div class="header-controls">
+            <button class="cedis-selector" onclick="openCedisModal()">
+                🏢 <span id="cedisDisplay">Todos los CEDIS</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="clientes.html">Clientes</a></li>
+            <li><a href="entregas.html">Entregas</a></li>
+            <li><a href="devoluciones.html" class="active">Devoluciones</a></li>
+            <li><a href="indicadores.html">Indicadores</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h2 class="page-title">Registro de Devoluciones</h2>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Historial de Devoluciones</h3>
+                <button class="btn btn-primary" onclick="exportTableToCSV('tablaDevoluciones', 'devoluciones.csv')">
+                    📥 Exportar CSV
+                </button>
+            </div>
+            <table id="tablaDevoluciones">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Entrega Original</th>
+                        <th>Cliente</th>
+                        <th>CEDIS</th>
+                        <th>Motivo</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="devolucionesBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal CEDIS -->
+    <div class="modal-overlay" id="cedisModal">
+        <div class="modal">
+            <h3 class="modal-title">Seleccionar CEDIS</h3>
+            <div class="cedis-list" id="cedisListContainer"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeCedisModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        async function loadDevoluciones() {
+            const devoluciones = dataManager.getDevoluciones();
+            const devolucionesBody = document.getElementById('devolucionesBody');
+            
+            devolucionesBody.innerHTML = devoluciones.map(devolucion => {
+                const cliente = dataManager.getClienteById(devolucion.cliente);
+                const cedis = dataManager.getCedisById(devolucion.cedis);
+                
+                return `
+                    <tr>
+                        <td>${devolucion.folio}</td>
+                        <td>${formatDate(devolucion.fecha)}</td>
+                        <td>${devolucion.entregaOriginal}</td>
+                        <td>${cliente.nombre || devolucion.cliente}</td>
+                        <td>${cedis.nombre || devolucion.cedis}</td>
+                        <td>${devolucion.motivo}</td>
+                        <td>${formatCurrency(devolucion.total)}</td>
+                        <td><span class="status-badge ${getStatusClass(devolucion.estado)}">${devolucion.estado}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function refreshCurrentPage() {
+            loadDevoluciones();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await dataManager.loadData();
+            loadDevoluciones();
+            initNavigation();
+        });
+    </script>
+</body>
+</html>

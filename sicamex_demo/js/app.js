@@ -1,300 +1,212 @@
-/* SICAMEX Demo - Main Application */
-$(document).ready(function() {
-    
-    // Initialize the application
-    DB.loadData(function(data) {
-        console.log('Database loaded successfully');
-        initDashboard();
-        loadCedisSelect();
-        renderVentasDiaChart();
-        updateTotalVentas();
-        populateTables();
-    });
-    
-    // Initialize dashboard elements
-    function initDashboard() {
-        const today = new Date();
-        const dateStr = today.toISOString().split('T')[0];
-        $('#Fecha').val(dateStr);
-        $('#VDD').text('Venta del Día ' + dateStr);
-        
-        // Set current user (simulated)
-        $('#User').text('Juan Pérez');
+class DataManager {
+    constructor() {
+        this.data = null;
+        this.currentCedis = 'todos';
     }
-    
-    // Load CEDIS into select dropdown
-    function loadCedisSelect() {
-        const cedis = DB.getCedisSelect();
-        const $select = $('#edtidCedis');
-        $select.empty();
-        $select.append('<option value="0">Escoje el CEDIS</option>');
-        
-        cedis.forEach(cedi => {
-            $select.append(`<option value="${cedi.id}">${cedi.nombre}</option>`);
-        });
-    }
-    
-    // Render sales chart using Morris.js style with Chart.js
-    function renderVentasDiaChart() {
-        const ventasData = DB.getVentasDia();
-        
-        if (ventasData.length === 0) {
-            $('#hero-bar').html('<p class="text-center text-muted">No hay datos de ventas disponibles</p>');
-            return;
+
+    async loadData() {
+        try {
+            const response = await fetch('data/database.json');
+            this.data = await response.json();
+            return this.data;
+        } catch (error) {
+            console.error('Error loading data:', error);
+            return null;
         }
-        
-        const ctx = document.getElementById('salesChart').getContext('2d');
-        
-        // Destroy existing chart if any
-        if (window.salesChartInstance) {
-            window.salesChartInstance.destroy();
+    }
+
+    setCedis(cedisId) {
+        this.currentCedis = cedisId;
+    }
+
+    getCedis() {
+        return this.currentCedis;
+    }
+
+    filterByCedis(items, cedisField = 'cedis') {
+        if (this.currentCedis === 'todos') {
+            return items;
         }
-        
-        window.salesChartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ventasData.map(v => v.Ruta),
-                datasets: [{
-                    label: 'Ventas Totales',
-                    data: ventasData.map(v => v.Total),
-                    backgroundColor: [
-                        'rgba(98, 204, 100, 0.8)',
-                        'rgba(232, 78, 64, 0.8)',
-                        'rgba(232, 90, 200, 0.8)',
-                        'rgba(63, 207, 187, 0.8)',
-                        'rgba(98, 111, 112, 0.8)'
-                    ],
-                    borderColor: [
-                        'rgb(98, 204, 100)',
-                        'rgb(232, 78, 64)',
-                        'rgb(232, 90, 200)',
-                        'rgb(63, 207, 187)',
-                        'rgb(98, 111, 112)'
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return DB.formatCurrency(value);
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return DB.formatCurrency(context.raw);
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        return items.filter(item => item[cedisField] === this.currentCedis);
     }
-    
-    // Update total sales amount
-    function updateTotalVentas() {
-        const ventasData = DB.getVentasDia();
-        const total = ventasData.reduce((sum, v) => sum + v.Total, 0);
-        $('#TTL').text(DB.formatCurrency(total));
+
+    getIndicadores() {
+        return this.data?.indicadores || {};
     }
-    
-    // Populate all tables
-    function populateTables() {
-        populateProductosTable();
-        populateClientesTable();
-        populateEntregasTable();
-        populateDevolucionesTable();
-        populateIndicadoresTable();
+
+    getProductos() {
+        return this.data?.productos || [];
     }
-    
-    // Productos Table
-    function populateProductosTable() {
-        const productos = DB.getProductos();
-        const tbody = $('#productosTableBody');
-        tbody.empty();
-        
-        productos.forEach(prod => {
-            const row = `
-                <tr>
-                    <td>${prod.id}</td>
-                    <td>${prod.nombre}</td>
-                    <td>${prod.grupo}</td>
-                    <td>${prod.marca}</td>
-                    <td>${DB.formatCurrency(prod.precio)}</td>
-                    <td>${prod.codigo}</td>
-                    <td>${getCedisName(prod.idCedis)}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
+
+    getClientes() {
+        return this.data?.clientes || [];
     }
-    
-    // Clientes Table
-    function populateClientesTable() {
-        const clientes = DB.getClientes();
-        const tbody = $('#clientesTableBody');
-        tbody.empty();
-        
-        clientes.forEach(cli => {
-            const row = `
-                <tr>
-                    <td>${cli.id}</td>
-                    <td>${cli.nombreTienda}</td>
-                    <td>${cli.calle} #${cli.numeroExt}</td>
-                    <td>${cli.colonia}</td>
-                    <td>${cli.codigoPostal}</td>
-                    <td>Ruta ${cli.idRuta}</td>
-                    <td>Día ${cli.dia}</td>
-                    <td><span class="badge bg-${cli.activo ? 'success' : 'danger'}">${cli.activo ? 'Activo' : 'Inactivo'}</span></td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
+
+    getEntregas() {
+        const entregas = this.data?.entregas || [];
+        return this.filterByCedis(entregas);
     }
-    
-    // Entregas Table
-    function populateEntregasTable() {
-        const entregas = DB.getEntregas();
-        const tbody = $('#entregasTableBody');
-        tbody.empty();
-        
-        entregas.forEach(ent => {
-            const statusClass = ent.estado === 'Entregado' ? 'success' : 'warning';
-            const row = `
-                <tr>
-                    <td>${ent.id}</td>
-                    <td>${DB.formatDate(ent.fecha)}</td>
-                    <td>${ent.cliente}</td>
-                    <td>${ent.ruta}</td>
-                    <td>${DB.formatCurrency(ent.total)}</td>
-                    <td><span class="badge bg-${statusClass}">${ent.estado}</span></td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
+
+    getDevoluciones() {
+        const devoluciones = this.data?.devoluciones || [];
+        return this.filterByCedis(devoluciones);
     }
-    
-    // Devoluciones Table
-    function populateDevolucionesTable() {
-        const devoluciones = DB.getDevoluciones();
-        const tbody = $('#devolucionesTableBody');
-        tbody.empty();
-        
-        devoluciones.forEach(dev => {
-            const row = `
-                <tr>
-                    <td>${dev.id}</td>
-                    <td>${DB.formatDate(dev.fecha)}</td>
-                    <td>${dev.cliente}</td>
-                    <td>${dev.ruta}</td>
-                    <td>${DB.formatCurrency(dev.total)}</td>
-                    <td>${dev.causa}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
+
+    getCedisList() {
+        return this.data?.cedis || [];
     }
-    
-    // Indicadores Table
-    function populateIndicadoresTable() {
-        const indicadores = DB.getIndicadores();
-        const tbody = $('#indicadoresTableBody');
-        tbody.empty();
-        
-        indicadores.forEach(ind => {
-            const row = `
-                <tr>
-                    <td>${ind.mes}</td>
-                    <td>${ind.rutasProgramadas}</td>
-                    <td>${ind.rutasCompletadas}</td>
-                    <td>${ind.eficiencia}%</td>
-                    <td>${DB.formatCurrency(ind.ventasTotales)}</td>
-                    <td>${ind.clientesVisitados}</td>
-                    <td>${ind.clientesCompraron}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
+
+    getVentasPorRuta() {
+        return this.data?.ventasPorRuta || [];
     }
-    
-    // Helper function to get CEDIS name by ID
-    function getCedisName(idCedis) {
-        const cedis = DB.getCedis();
-        const cedi = cedis.find(c => c.id === idCedis);
-        return cedi ? cedi.nombre : 'N/A';
+
+    getClienteById(id) {
+        return this.data?.clientes?.find(c => c.id === id) || {};
     }
-    
-    // Export functions for buttons
-    $('#EXP_PROD').on('click', function() {
-        exportToCSV(DB.getProductos(), 'Productos');
+
+    getCedisById(id) {
+        return this.data?.cedis?.find(c => c.id === id) || {};
+    }
+}
+
+const dataManager = new DataManager();
+
+// Utility functions
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN'
+    }).format(amount);
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-MX', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
     });
-    
-    $('#EXP_CLTS').on('click', function() {
-        exportToCSV(DB.getClientes(), 'Clientes');
+}
+
+function getStatusClass(estado) {
+    const states = {
+        'Entregado': 'status-success',
+        'En tránsito': 'status-info',
+        'Programado': 'status-warning',
+        'Cancelado': 'status-danger',
+        'Procesado': 'status-success',
+        'En revisión': 'status-warning',
+        'Pendiente': 'status-warning'
+    };
+    return states[estado] || 'status-info';
+}
+
+function exportTableToCSV(tableId, filename) {
+    const table = document.getElementById(tableId);
+    if (!table) return;
+
+    let csv = [];
+    const rows = table.querySelectorAll('tr');
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll('th, td');
+        const rowData = [];
+        cols.forEach(col => {
+            rowData.push('"' + col.textContent.trim().replace(/"/g, '""') + '"');
+        });
+        csv.push(rowData.join(','));
     });
+
+    const csvContent = csv.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+}
+
+// Modal functions
+function openCedisModal() {
+    const modal = document.getElementById('cedisModal');
+    if (modal) {
+        modal.classList.add('active');
+        renderCedisList();
+    }
+}
+
+function closeCedisModal() {
+    const modal = document.getElementById('cedisModal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+}
+
+function renderCedisList() {
+    const container = document.getElementById('cedisListContainer');
+    if (!container) return;
+
+    const cedisList = dataManager.getCedisList();
+    const currentCedis = dataManager.getCedis();
+
+    container.innerHTML = `
+        <div class="cedis-item ${currentCedis === 'todos' ? 'selected' : ''}" 
+             onclick="selectCedis('todos')">
+            <h4>Todos los CEDIS</h4>
+            <p>Ver datos de todos los centros de distribución</p>
+        </div>
+        ${cedisList.map(cedis => `
+            <div class="cedis-item ${currentCedis === cedis.id ? 'selected' : ''}" 
+                 onclick="selectCedis('${cedis.id}')">
+                <h4>${cedis.nombre}</h4>
+                <p>${cedis.direccion}</p>
+                <p>${cedis.telefono}</p>
+            </div>
+        `).join('')}
+    `;
+}
+
+function selectCedis(cedisId) {
+    dataManager.setCedis(cedisId);
+    renderCedisList();
     
-    $('#EXP_VENT').on('click', function() {
-        exportToCSV(DB.getVentasDia(), 'Ventas');
-    });
+    // Update header display
+    const cedisDisplay = document.getElementById('cedisDisplay');
+    if (cedisDisplay) {
+        const cedis = cedisId === 'todos' 
+            ? { nombre: 'Todos los CEDIS' } 
+            : dataManager.getCedisById(cedisId);
+        cedisDisplay.textContent = cedis.nombre;
+    }
     
-    $('#EXP_INDI').on('click', function() {
-        exportToCSV(DB.getIndicadores(), 'Indicadores');
-    });
+    closeCedisModal();
     
-    // CSV Export function
-    function exportToCSV(data, filename) {
-        if (!data || data.length === 0) {
-            alert('No hay datos para exportar');
-            return;
+    // Refresh current page data
+    if (typeof refreshCurrentPage === 'function') {
+        refreshCurrentPage();
+    }
+}
+
+// Initialize navigation
+function initNavigation() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath.split('/').pop() || 
+            (currentPath.endsWith('/') && link.getAttribute('href') === 'index.html')) {
+            link.classList.add('active');
         }
-        
-        const headers = Object.keys(data[0]);
-        const csvContent = [
-            headers.join(','),
-            ...data.map(row => 
-                headers.map(header => 
-                    `"${row[header] !== null && row[header] !== undefined ? row[header] : ''}"`
-                ).join(',')
-            )
-        ].join('\n');
-        
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        
-        link.setAttribute('href', url);
-        link.setAttribute('download', `${filename}_${new Date().toISOString().split('T')[0]}.csv`);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+    });
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', async () => {
+    await dataManager.loadData();
+    initNavigation();
+    
+    // Set initial CEDIS display
+    const cedisDisplay = document.getElementById('cedisDisplay');
+    if (cedisDisplay) {
+        cedisDisplay.textContent = 'Todos los CEDIS';
     }
-    
-    // Date picker change event
-    $('#Fecha').on('change', function() {
-        const selectedDate = $(this).val();
-        $('#VDD').text('Venta del Día ' + selectedDate);
-        // In a real app, this would fetch data for the selected date
-        console.log('Date changed to:', selectedDate);
-    });
-    
-    // CEDIS selection change
-    $('#CAMBIA_CEDIS').on('click', function() {
-        const selectedCedis = $('#edtidCedis').val();
-        console.log('Selected CEDIS:', selectedCedis);
-        // In a real app, this would filter data by selected CEDIS
-    });
 });

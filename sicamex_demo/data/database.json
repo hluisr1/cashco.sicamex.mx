@@ -1,73 +1,76 @@
 {
   "cedis": [
-    {"id": 1, "nombre": "CDMX Norte", "direccion": "Av. Central 123, Ciudad de México", "telefono": "55-1234-5678"},
-    {"id": 2, "nombre": "Guadalajara", "direccion": "Blvd. Industrial 456, Guadalajara", "telefono": "33-9876-5432"},
-    {"id": 3, "nombre": "Monterrey", "direccion": "Calle Comercio 789, Monterrey", "telefono": "81-5555-1234"},
-    {"id": 4, "nombre": "Puebla", "direccion": "Av. Reforma 321, Puebla", "telefono": "22-4444-6789"},
-    {"id": 5, "nombre": "Tijuana", "direccion": "Zona Industrial 654, Tijuana", "telefono": "66-3333-9876"}
-  ],
-  "usuarios": [
-    {"id": 1, "nombre": "Juan Pérez", "email": "juan.perez@sicamex.com", "tipo": "Administrador", "idCedis": 1, "activo": true},
-    {"id": 2, "nombre": "María García", "email": "maria.garcia@sicamex.com", "tipo": "Supervisor", "idCedis": 1, "activo": true},
-    {"id": 3, "nombre": "Carlos López", "email": "carlos.lopez@sicamex.com", "tipo": "Ruta", "idCedis": 2, "activo": true},
-    {"id": 4, "nombre": "Ana Martínez", "email": "ana.martinez@sicamex.com", "tipo": "Supervisor", "idCedis": 3, "activo": true},
-    {"id": 5, "nombre": "Roberto Sánchez", "email": "roberto.sanchez@sicamex.com", "tipo": "Ruta", "idCedis": 4, "activo": true}
-  ],
-  "rutas": [
-    {"id": 1, "nombre": "Ruta Norte A", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Lunes", "activa": true},
-    {"id": 2, "nombre": "Ruta Norte B", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Martes", "activa": true},
-    {"id": 3, "nombre": "Ruta Centro", "idCedis": 1, "supervisor": "Juan Pérez", "diaOperacion": "Miércoles", "activa": true},
-    {"id": 4, "nombre": "Ruta Sur", "idCedis": 1, "supervisor": "Juan Pérez", "diaOperacion": "Jueves", "activa": true},
-    {"id": 5, "nombre": "Ruta Oriente", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Viernes", "activa": true},
-    {"id": 6, "nombre": "Ruta GDL Norte", "idCedis": 2, "supervisor": "Carlos López", "diaOperacion": "Lunes", "activa": true},
-    {"id": 7, "nombre": "Ruta GDL Sur", "idCedis": 2, "supervisor": "Carlos López", "diaOperacion": "Martes", "activa": true}
-  ],
-  "clientes": [
-    {"id": 1, "nombreTienda": "Oxxo Centro", "calle": "Av. Juárez", "numeroExt": "123", "colonia": "Centro", "codigoPostal": "06600", "latitud": 19.4326, "longitud": -99.1332, "idRuta": 1, "dia": 1, "secuencia": 1, "activo": true},
-    {"id": 2, "nombreTienda": "7 Eleven Reforma", "calle": "Paseo de la Reforma", "numeroExt": "456", "colonia": "Juárez", "codigoPostal": "06600", "latitud": 19.4284, "longitud": -99.1676, "idRuta": 1, "dia": 1, "secuencia": 2, "activo": true},
-    {"id": 3, "nombreTienda": "Farmacia Guadalajara", "calle": "Calle Madero", "numeroExt": "789", "colonia": "Centro Histórico", "codigoPostal": "06000", "latitud": 19.4338, "longitud": -99.1377, "idRuta": 1, "dia": 1, "secuencia": 3, "activo": true},
-    {"id": 4, "nombreTienda": "Abarrotes El Sol", "calle": "Av. Insurgentes", "numeroExt": "321", "colonia": "Roma", "codigoPostal": "06700", "latitud": 19.4185, "longitud": -99.1640, "idRuta": 2, "dia": 2, "secuencia": 1, "activo": true},
-    {"id": 5, "nombreTienda": "Mini Super Luna", "calle": "Calle Durango", "numeroExt": "654", "colonia": "Roma Norte", "codigoPostal": "06700", "latitud": 19.4203, "longitud": -99.1598, "idRuta": 2, "dia": 2, "secuencia": 2, "activo": true},
-    {"id": 6, "nombreTienda": "Tienda La Esquina", "calle": "Av. Chapultepec", "numeroExt": "987", "colonia": "Condesa", "codigoPostal": "06140", "latitud": 19.4150, "longitud": -99.1712, "idRuta": 3, "dia": 3, "secuencia": 1, "activo": true},
-    {"id": 7, "nombreTienda": "Comercial del Valle", "calle": "Calle Amsterdam", "numeroExt": "147", "colonia": "Hipódromo", "codigoPostal": "06100", "latitud": 19.4098, "longitud": -99.1689, "idRuta": 3, "dia": 3, "secuencia": 2, "activo": true},
-    {"id": 8, "nombreTienda": "Distribuidora Azteca", "calle": "Av. Universidad", "numeroExt": "258", "colonia": "Del Valle", "codigoPostal": "03100", "latitud": 19.3850, "longitud": -99.1598, "idRuta": 4, "dia": 4, "secuencia": 1, "activo": true},
-    {"id": 9, "nombreTienda": "Mercado San Pedro", "calle": "Calle Xola", "numeroExt": "369", "colonia": "Nápoles", "codigoPostal": "03810", "latitud": 19.3789, "longitud": -99.1543, "idRuta": 4, "dia": 4, "secuencia": 2, "activo": true},
-    {"id": 10, "nombreTienda": "Express Delicias", "calle": "Av. Coyoacán", "numeroExt": "741", "colonia": "Del Carmen", "codigoPostal": "04100", "latitud": 19.3467, "longitud": -99.1618, "idRuta": 5, "dia": 5, "secuencia": 1, "activo": true}
+    {"id": "C001", "nombre": "CEDIS Norte", "direccion": "Av. Industrial 100, Monterrey", "telefono": "81-5555-1001"},
+    {"id": "C002", "nombre": "CEDIS Centro", "direccion": "Calle Comercio 200, CDMX", "telefono": "55-5555-2002"},
+    {"id": "C003", "nombre": "CEDIS Occidente", "direccion": "Blvd. Empresarial 300, Guadalajara", "telefono": "33-5555-3003"},
+    {"id": "C004", "nombre": "CEDIS Sureste", "direccion": "Carretera Nacional 400, Mérida", "telefono": "99-5555-4004"},
+    {"id": "C005", "nombre": "CEDIS Noreste", "direccion": "Paseo Logístico 500, Reynosa", "telefono": "89-5555-5005"}
   ],
   "productos": [
-    {"id": 1, "nombre": "Coca Cola 600ml", "grupo": "Bebidas", "marca": "Coca-Cola", "precio": 12.00, "codigo": "CC600", "idCedis": 1},
-    {"id": 2, "nombre": "Pepsi 600ml", "grupo": "Bebidas", "marca": "PepsiCo", "precio": 11.50, "codigo": "PEP600", "idCedis": 1},
-    {"id": 3, "nombre": "Sabritas Original 55g", "grupo": "Botanas", "marca": "Sabritas", "precio": 18.00, "codigo": "SAB55", "idCedis": 1},
-    {"id": 4, "nombre": "Marinela Conchas", "grupo": "Panificación", "marca": "Marinela", "precio": 22.00, "codigo": "MAR001", "idCedis": 1},
-    {"id": 5, "nombre": "Bimbo Blanco Grande", "grupo": "Panificación", "marca": "Bimbo", "precio": 38.00, "codigo": "BIM001", "idCedis": 1},
-    {"id": 6, "nombre": "Agua Ciel 1L", "grupo": "Bebidas", "marca": "Coca-Cola", "precio": 10.00, "codigo": "CIE1L", "idCedis": 1},
-    {"id": 7, "nombre": "Doritos Nacho 45g", "grupo": "Botanas", "marca": "Sabritas", "precio": 17.00, "codigo": "DOR45", "idCedis": 1},
-    {"id": 8, "nombre": "Galletas Emperador", "grupo": "Galletas", "marca": "Marinela", "precio": 15.00, "codigo": "EMP001", "idCedis": 1},
-    {"id": 9, "nombre": "Jumex Mango 330ml", "grupo": "Jugos", "marca": "Jumex", "precio": 13.00, "codigo": "JUM330", "idCedis": 1},
-    {"id": 10, "nombre": "Boing Manzana 500ml", "grupo": "Jugos", "marca": "Boing", "precio": 14.00, "codigo": "BOI500", "idCedis": 1}
+    {"sku": "P001", "nombre": "Refresco Cola 600ml", "categoria": "Bebidas", "precio": 12.50, "stock": 5000},
+    {"sku": "P002", "nombre": "Agua Natural 1L", "categoria": "Bebidas", "precio": 8.00, "stock": 8000},
+    {"sku": "P003", "nombre": "Jugo Naranja 500ml", "categoria": "Bebidas", "precio": 15.00, "stock": 3500},
+    {"sku": "P004", "nombre": "Leche Entera 1L", "categoria": "Lácteos", "precio": 22.00, "stock": 2000},
+    {"sku": "P005", "nombre": "Yogurt Fresa 200g", "categoria": "Lácteos", "precio": 9.50, "stock": 4500},
+    {"sku": "P006", "nombre": "Pan Blanco 400g", "categoria": "Panadería", "precio": 18.00, "stock": 1500},
+    {"sku": "P007", "nombre": "Galletas Chocolate 200g", "categoria": "Snacks", "precio": 14.00, "stock": 6000},
+    {"sku": "P008", "nombre": "Papas Fritas 150g", "categoria": "Snacks", "precio": 16.50, "stock": 5500},
+    {"sku": "P009", "nombre": "Chocolate Barra 50g", "categoria": "Dulces", "precio": 10.00, "stock": 7000},
+    {"sku": "P010", "nombre": "Café Molido 250g", "categoria": "Abarrotes", "precio": 45.00, "stock": 1200}
   ],
-  "ventasDia": [
-    {"Ruta": "Ruta Norte A", "Total": 15420.50, "Pedidos": 28, "Clientes": 25},
-    {"Ruta": "Ruta Norte B", "Total": 12350.75, "Pedidos": 22, "Clientes": 20},
-    {"Ruta": "Ruta Centro", "Total": 18900.00, "Pedidos": 35, "Clientes": 32},
-    {"Ruta": "Ruta Sur", "Total": 9875.25, "Pedidos": 18, "Clientes": 16},
-    {"Ruta": "Ruta Oriente", "Total": 21500.80, "Pedidos": 40, "Clientes": 38}
+  "clientes": [
+    {"id": "CL001", "nombre": "Tienda El Ahorro", "tipo": "Minorista", "direccion": "Calle Principal 123, Monterrey", "telefono": "81-1234-5678", "credito": 50000},
+    {"id": "CL002", "nombre": "Supermercado Central", "tipo": "Mayorista", "direccion": "Av. Reforma 456, CDMX", "telefono": "55-2345-6789", "credito": 150000},
+    {"id": "CL003", "nombre": "Abarrotes Don Pepe", "tipo": "Minorista", "direccion": "Calle Juárez 789, Guadalajara", "telefono": "33-3456-7890", "credito": 30000},
+    {"id": "CL004", "nombre": "Minimarket La Esquina", "tipo": "Minorista", "direccion": "Blvd. Díaz 321, Mérida", "telefono": "99-4567-8901", "credito": 25000},
+    {"id": "CL005", "nombre": "Distribuidora del Norte", "tipo": "Distribuidor", "direccion": "Carretera 40 Km 5, Reynosa", "telefono": "89-5678-9012", "credito": 200000},
+    {"id": "CL006", "nombre": "Tiendas Express", "tipo": "Cadena", "direccion": "Av. Universidad 654, Querétaro", "telefono": "44-6789-0123", "credito": 120000},
+    {"id": "CL007", "nombre": "Comercializadora Azteca", "tipo": "Mayorista", "direccion": "Calle Morelos 987, Puebla", "telefono": "22-7890-1234", "credito": 180000},
+    {"id": "CL008", "nombre": "Oxxo Centro", "tipo": "Cadena", "direccion": "Plaza Principal 111, Toluca", "telefono": "72-8901-2345", "credito": 90000},
+    {"id": "CL009", "nombre": "Mercado La Paz", "tipo": "Mayorista", "direccion": "Calle Hidalgo 222, León", "telefono": "47-9012-3456", "credito": 75000},
+    {"id": "CL010", "nombre": "Farmacia Guadalajara", "tipo": "Cadena", "direccion": "Av. América 333, Guadalajara", "telefono": "33-0123-4567", "credito": 110000}
   ],
   "entregas": [
-    {"id": 1, "fecha": "2025-01-15", "idCliente": 1, "cliente": "Oxxo Centro", "total": 1250.50, "estado": "Entregado", "ruta": "Ruta Norte A"},
-    {"id": 2, "fecha": "2025-01-15", "idCliente": 2, "cliente": "7 Eleven Reforma", "total": 2340.00, "estado": "Entregado", "ruta": "Ruta Norte A"},
-    {"id": 3, "fecha": "2025-01-15", "idCliente": 3, "cliente": "Farmacia Guadalajara", "total": 890.75, "estado": "Pendiente", "ruta": "Ruta Norte A"},
-    {"id": 4, "fecha": "2025-01-15", "idCliente": 4, "cliente": "Abarrotes El Sol", "total": 1567.25, "estado": "Entregado", "ruta": "Ruta Norte B"},
-    {"id": 5, "fecha": "2025-01-15", "idCliente": 5, "cliente": "Mini Super Luna", "total": 2100.00, "estado": "Entregado", "ruta": "Ruta Norte B"}
+    {"folio": "E20240101-001", "fecha": "2024-01-15", "cliente": "CL001", "cedis": "C001", "total": 15420.50, "estado": "Entregado", "ruta": "Ruta Norte A"},
+    {"folio": "E20240101-002", "fecha": "2024-01-15", "cliente": "CL002", "cedis": "C002", "total": 45680.00, "estado": "Entregado", "ruta": "Ruta Centro B"},
+    {"folio": "E20240102-001", "fecha": "2024-01-16", "cliente": "CL003", "cedis": "C003", "total": 8950.25, "estado": "Entregado", "ruta": "Ruta Occidente A"},
+    {"folio": "E20240102-002", "fecha": "2024-01-16", "cliente": "CL004", "cedis": "C004", "total": 12340.75, "estado": "En tránsito", "ruta": "Ruta Sureste A"},
+    {"folio": "E20240103-001", "fecha": "2024-01-17", "cliente": "CL005", "cedis": "C005", "total": 89500.00, "estado": "Entregado", "ruta": "Ruta Noreste A"},
+    {"folio": "E20240103-002", "fecha": "2024-01-17", "cliente": "CL006", "cedis": "C001", "total": 34560.50, "estado": "Programado", "ruta": "Ruta Norte B"},
+    {"folio": "E20240104-001", "fecha": "2024-01-18", "cliente": "CL007", "cedis": "C002", "total": 67890.25, "estado": "Entregado", "ruta": "Ruta Centro C"},
+    {"folio": "E20240104-002", "fecha": "2024-01-18", "cliente": "CL008", "cedis": "C003", "total": 23450.00, "estado": "Entregado", "ruta": "Ruta Occidente B"},
+    {"folio": "E20240105-001", "fecha": "2024-01-19", "cliente": "CL009", "cedis": "C004", "total": 18760.50, "estado": "Cancelado", "ruta": "Ruta Sureste B"},
+    {"folio": "E20240105-002", "fecha": "2024-01-19", "cliente": "CL010", "cedis": "C005", "total": 41230.75, "estado": "Entregado", "ruta": "Ruta Noreste B"}
   ],
   "devoluciones": [
-    {"id": 1, "fecha": "2025-01-14", "idCliente": 6, "cliente": "Tienda La Esquina", "total": 450.00, "causa": "Producto Caducado", "ruta": "Ruta Centro"},
-    {"id": 2, "fecha": "2025-01-14", "idCliente": 7, "cliente": "Comercial del Valle", "total": 320.50, "causa": "Empaque Dañado", "ruta": "Ruta Centro"},
-    {"id": 3, "fecha": "2025-01-13", "idCliente": 8, "cliente": "Distribuidora Azteca", "total": 780.00, "causa": "Error en Pedido", "ruta": "Ruta Sur"}
+    {"folio": "D20240101-001", "fecha": "2024-01-16", "entregaOriginal": "E20240101-001", "cliente": "CL001", "cedis": "C001", "total": 1250.00, "motivo": "Producto dañado", "estado": "Procesado"},
+    {"folio": "D20240102-001", "fecha": "2024-01-17", "entregaOriginal": "E20240101-002", "cliente": "CL002", "cedis": "C002", "total": 3450.50, "motivo": "Caducidad próxima", "estado": "Procesado"},
+    {"folio": "D20240103-001", "fecha": "2024-01-18", "entregaOriginal": "E20240102-001", "cliente": "CL003", "cedis": "C003", "total": 890.25, "motivo": "Error en pedido", "estado": "En revisión"},
+    {"folio": "D20240104-001", "fecha": "2024-01-19", "entregaOriginal": "E20240103-001", "cliente": "CL005", "cedis": "C005", "total": 5670.00, "motivo": "Producto defectuoso", "estado": "Procesado"},
+    {"folio": "D20240105-001", "fecha": "2024-01-20", "entregaOriginal": "E20240104-001", "cliente": "CL007", "cedis": "C002", "total": 2340.75, "motivo": "Sobrante de inventario", "estado": "Pendiente"}
   ],
-  "indicadores": [
-    {"mes": "Enero 2025", "rutasProgramadas": 150, "rutasCompletadas": 142, "eficiencia": 94.67, "ventasTotales": 1250000.00, "clientesVisitados": 450, "clientesCompraron": 380},
-    {"mes": "Diciembre 2024", "rutasProgramadas": 160, "rutasCompletadas": 155, "eficiencia": 96.88, "ventasTotales": 1450000.00, "clientesVisitados": 480, "clientesCompraron": 420},
-    {"mes": "Noviembre 2024", "rutasProgramadas": 145, "rutasCompletadas": 138, "eficiencia": 95.17, "ventasTotales": 1180000.00, "clientesVisitados": 430, "clientesCompraron": 365}
+  "indicadores": {
+    "ventasMes": 2458920.50,
+    "entregasMes": 156,
+    "devolucionesMes": 23,
+    "tasaDevolucion": 1.47,
+    "cumplimientoEntregas": 94.5,
+    "tiempoPromedioEntrega": 2.3,
+    "productosActivos": 10,
+    "clientesActivos": 10,
+    "ticketPromedio": 15762.31
+  },
+  "ventasPorRuta": [
+    {"ruta": "Ruta Norte A", "ventas": 245680.50},
+    {"ruta": "Ruta Norte B", "ventas": 189450.25},
+    {"ruta": "Ruta Centro A", "ventas": 312890.75},
+    {"ruta": "Ruta Centro B", "ventas": 278540.00},
+    {"ruta": "Ruta Centro C", "ventas": 198760.50},
+    {"ruta": "Ruta Occidente A", "ventas": 167890.25},
+    {"ruta": "Ruta Occidente B", "ventas": 145320.00},
+    {"ruta": "Ruta Sureste A", "ventas": 134560.75},
+    {"ruta": "Ruta Sureste B", "ventas": 98450.50},
+    {"ruta": "Ruta Noreste A", "ventas": 287650.00},
+    {"ruta": "Ruta Noreste B", "ventas": 234890.25}
   ]
 }
