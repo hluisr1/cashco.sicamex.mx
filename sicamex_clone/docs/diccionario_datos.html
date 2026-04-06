@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario de Datos y Módulos - SICAMEX</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            border-bottom: 4px solid var(--secondary);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: var(--secondary);
+            margin-top: 50px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 15px;
+            background: linear-gradient(90deg, #e8f4fd 0%, transparent 100%);
+            padding: 15px 15px 15px 20px;
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin-top: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        
+        .header-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .header-info h1 {
+            color: white;
+            border: none;
+            margin: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        
+        thead th {
+            background-color: #1a252f;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e8f4fd;
+        }
+        
+        .entity-section {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .entity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .entity-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        .entity-table {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .data-type {
+            font-family: 'Courier New', monospace;
+            background-color: #e8f4fd;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #2980b9;
+        }
+        
+        .nullable {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .not-null {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .pk {
+            background-color: #f39c12;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .fk {
+            background-color: #9b59b6;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .module-card {
+            background: white;
+            border-left: 5px solid var(--secondary);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .module-card h4 {
+            color: var(--secondary);
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+        
+        .module-card ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        
+        .module-card li {
+            margin: 8px 0;
+        }
+        
+        .toc {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            columns: 2;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            column-span: all;
+            border: none;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            break-inside: avoid;
+        }
+        
+        .toc a {
+            color: var(--secondary);
+            text-decoration: none;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .toc a:hover {
+            background-color: #e8f4fd;
+            text-decoration: underline;
+        }
+        
+        .relation-diagram {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .badge-entity {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 3px;
+        }
+        
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+            text-align: center;
+            color: #7f8c8d;
+        }
+        
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e74c3c;
+        }
+        
+        .description-box {
+            background-color: #e8f6ff;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-info">
+            <h1>📚 Diccionario de Datos y Módulos del Sistema SICAMEX</h1>
+            <p style="margin-top: 15px; font-size: 1.1rem;">Documentación completa de entidades, atributos y módulos funcionales</p>
+            <p style="margin-top: 10px; opacity: 0.9;">Generado: 06 de Abril, 2026 | Versión: 1.0</p>
+        </div>
+
+        <div class="toc">
+            <h3>📑 Índice de Contenido</h3>
+            <ul>
+                <li><a href="#modulos-sistema">1. Módulos del Sistema</a></li>
+                <li><a href="#entidades-principales">2. Entidades Principales</a></li>
+                <li><a href="#cedis">CEDIS (Centros de Distribución)</a></li>
+                <li><a href="#usuarios">Usuarios y Tipos de Usuario</a></li>
+                <li><a href="#productos">Productos, Marcas y Grupos</a></li>
+                <li><a href="#clientes">Clientes</a></li>
+                <li><a href="#rutas">Rutas y Visitas</a></li>
+                <li><a href="#entregas">Entregas y Ventas</a></li>
+                <li><a href="#devoluciones">Devoluciones</a></li>
+                <li><a href="#indicadores">Indicadores</a></li>
+                <li><a href="#relaciones">3. Diagrama de Relaciones</a></li>
+                <li><a href="#webservices">4. WebServices Asociados</a></li>
+            </ul>
+        </div>
+
+        <h2 id="modulos-sistema">1. Módulos del Sistema</h2>
+        
+        <div class="module-card">
+            <h4>🏢 Módulo de CEDIS (Centros de Distribución)</h4>
+            <p>Gestión de los centros de distribución que almacenan y distribuyen productos a diferentes regiones.</p>
+            <ul>
+                <li>Alta, baja y modificación de CEDIS</li>
+                <li>Geolocalización de cada centro</li>
+                <li>Información fiscal y de contacto</li>
+                <li>Asignación de usuarios y clientes por CEDIS</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>👥 Módulo de Usuarios</h4>
+            <p>Administración de usuarios del sistema con diferentes niveles de acceso y permisos.</p>
+            <ul>
+                <li>Tipos de usuario con niveles de autenticación (Auth)</li>
+                <li>Registro de usuarios con información completa</li>
+                <li>Control de estado (Activo/Inactivo)</li>
+                <li>Asignación de usuarios a CEDIS específicos</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>📦 Módulo de Productos</h4>
+            <p>Catálogo completo de productos comercializados, organizados por marcas y grupos.</p>
+            <ul>
+                <li>Gestión de marcas comerciales</li>
+                <li>Clasificación por grupos/categorías</li>
+                <li>Precios y códigos de producto</li>
+                <li>Seguimiento de cargas, ventas e inventario</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>🏪 Módulo de Clientes</h4>
+            <p>Base de datos de clientes y tiendas con información detallada y geolocalización.</p>
+            <ul>
+                <li>Registro de clientes con datos completos</li>
+                <li>Asignación a CEDIS de referencia</li>
+                <li>Coordenadas GPS para rutas</li>
+                <li>Control de estado del cliente</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>🗺️ Módulo de Rutas y Visitas</h4>
+            <p>Planificación y seguimiento de rutas de reparto y visitas a clientes.</p>
+            <ul>
+                <li>Creación de rutas por CEDIS</li>
+                <li>Tipos de ruta (Reparto, Cobranza, etc.)</li>
+                <li>Registro de visitas programadas</li>
+                <li>Seguimiento de estatus de visita</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>🚚 Módulo de Entregas</h4>
+            <p>Registro detallado de entregas de productos realizadas en cada visita.</p>
+            <ul>
+                <li>Detalle de productos entregados</li>
+                <li>Cantidades y totales monetarios</li>
+                <li>Relación con promociones vigentes</li>
+                <li>Inventario inicial y final</li>
+                <li>Identificación del vendedor responsable</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>↩️ Módulo de Devoluciones</h4>
+            <p>Gestión de devoluciones de productos con causas y proceso de autorización.</p>
+            <ul>
+                <li>Catálogo de causas de devolución</li>
+                <li>Registro de devoluciones con validación</li>
+                <li>Proceso de autorización</li>
+                <li>Seguimiento de entrada a almacén</li>
+                <li>Cálculo de montos devueltos</li>
+            </ul>
+        </div>
+
+        <div class="module-card">
+            <h4>📊 Módulo de Indicadores</h4>
+            <p>Panel de control con métricas e indicadores de gestión del negocio.</p>
+            <ul>
+                <li>KPIs de ventas y entregas</li>
+                <li>Métricas de eficiencia por ruta</li>
+                <li>Comparativo vs metas establecidas</li>
+                <li>Indicadores de cobranza</li>
+            </ul>
+        </div>
+
+        <h2 id="entidades-principales">2. Entidades Principales - Diccionario de Datos</h2>
+
+        <div class="entity-section" id="cedis">
+            <div class="entity-header">
+                <span class="entity-name">📍 CEDIS</span>
+                <div>
+                    <span class="badge-entity">Tabla Principal</span>
+                    <span class="badge-entity">Maestra</span>
+                </div>
+            </div>
+            <div class="description-box">
+                <strong>Descripción:</strong> Representa los Centros de Distribución de la empresa. Cada CEDIS es una ubicación física 
+                donde se almacenan productos y desde donde se gestionan las operaciones de reparto a clientes en una región específica.
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Longitud</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td>11</td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único del CEDIS (Autoincremental)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR</span></td>
+                        <td>100</td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre comercial o identificador del CEDIS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latitud</strong></td>
+                        <td><span class="data-type">DOUBLE</span></td>
+                        <td>-</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Coordenada de latitud para geolocalización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Longitud</strong></td>
+                        <td><span class="data-type">DOUBLE</span></td>
+                        <td>-</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Coordenada de longitud para geolocalización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>nEmpresa</strong></td>
+                        <td><span class="data-type">VARCHAR</span></td>
+                        <td>100</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Razón social de la empresa propietaria</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RFC</strong></td>
+                        <td><span class="data-type">VARCHAR</span></td>
+                        <td>20</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Registro Federal de Contribuyentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Telefono</strong></td>
+                        <td><span class="data-type">VARCHAR</span></td>
+                        <td>20</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Número telefónico de contacto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domicilio</strong></td>
+                        <td><span class="data-type">VARCHAR</span></td>
+                        <td>255</td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Dirección física completa del CEDIS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="usuarios">
+            <div class="entity-header">
+                <span class="entity-name">👤 TipoUsuario</span>
+                <div>
+                    <span class="badge-entity">Catálogo</span>
+                    <span class="badge-entity">Seguridad</span>
+                </div>
+            </div>
+            <div class="description-box">
+                <strong>Descripción:</strong> Define los diferentes tipos de usuarios que pueden acceder al sistema, cada uno con un 
+                nivel de autenticación (Auth) que determina sus permisos y accesos.
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único del tipo de usuario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre del rol (Admin, Supervisor, Vendedor, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Auth</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nivel de autenticación (100=Admin, 75=Supervisor, 50=Vendedor, 40=Almacenista, 25=Consultor)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Descripcion</strong></td>
+                        <td><span class="data-type">VARCHAR(255)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Descripción detallada de permisos y responsabilidades</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="entity-header" style="margin-top: 30px;">
+                <span class="entity-name">👥 Usuario</span>
+                <div>
+                    <span class="badge-entity">Transaccional</span>
+                    <span class="badge-entity">Seguridad</span>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nickname</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Nombre de usuario único para login</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idCedis</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al CEDIS asignado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idTipo</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al tipo de usuario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre(s) del usuario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ApellidoP</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Apellido paterno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ApellidoM</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Apellido materno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Celular</strong></td>
+                        <td><span class="data-type">VARCHAR(20)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Número de celular de contacto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Activo</strong></td>
+                        <td><span class="data-type">BOOLEAN</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Estado del usuario (true=Activo, false=Inactivo)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Correo electrónico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>fAlta</strong></td>
+                        <td><span class="data-type">DATETIME</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Fecha y hora de alta del usuario</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pass</strong></td>
+                        <td><span class="data-type">VARCHAR(255)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Contraseña encriptada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="productos">
+            <div class="entity-header">
+                <span class="entity-name">🏷️ Marca</span>
+                <div><span class="badge-entity">Catálogo</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único de la marca</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre de la marca (Nestlé, Coca-Cola, Bimbo, etc.)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="entity-header" style="margin-top: 30px;">
+                <span class="entity-name">📋 Grupo</span>
+                <div><span class="badge-entity">Catálogo</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único del grupo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre del grupo/categoría (Lácteos, Bebidas, Abarrotes, etc.)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="entity-header" style="margin-top: 30px;">
+                <span class="entity-name">📦 Producto</span>
+                <div>
+                    <span class="badge-entity">Maestra</span>
+                    <span class="badge-entity">Inventario</span>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único del producto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idMarca</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia a la marca del producto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idGrupo</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al grupo/categoría del producto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(150)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre descriptivo del producto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Precio</strong></td>
+                        <td><span class="data-type">FLOAT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Precio unitario de venta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Codigo</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>UK</td>
+                        <td>Código único del producto (SKU)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cargas</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Total de cargas registradas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ventas</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Total de unidades vendidas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inventario</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Stock actual disponible</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="clientes">
+            <div class="entity-header">
+                <span class="entity-name">🏪 Cliente</span>
+                <div>
+                    <span class="badge-entity">Transaccional</span>
+                    <span class="badge-entity">Ventas</span>
+                </div>
+            </div>
+            <div class="description-box">
+                <strong>Descripción:</strong> Representa a los clientes o tiendas que reciben productos. Cada cliente está asociado 
+                a un CEDIS específico y cuenta con información de geolocalización para optimizar las rutas de reparto.
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único del cliente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idCedis</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al CEDIS de asignación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NombreTienda</strong></td>
+                        <td><span class="data-type">VARCHAR(150)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre comercial de la tienda</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre del propietario o contacto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ApellidoP</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Apellido paterno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ApellidoM</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Apellido materno</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Celular</strong></td>
+                        <td><span class="data-type">VARCHAR(20)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Número de celular de contacto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Correo</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Correo electrónico</td>
+                    </tr>
+                    <tr>
+                        <td><strong>fCreacion</strong></td>
+                        <td><span class="data-type">DATETIME</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Fecha de registro del cliente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Latitud</strong></td>
+                        <td><span class="data-type">DOUBLE</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Coordenada de latitud GPS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Longitud</strong></td>
+                        <td><span class="data-type">DOUBLE</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Coordenada de longitud GPS</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Activo</strong></td>
+                        <td><span class="data-type">BOOLEAN</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Estado del cliente (true=Activo, false=Inactivo)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="rutas">
+            <div class="entity-header">
+                <span class="entity-name">🗺️ Ruta</span>
+                <div><span class="badge-entity">Operaciones</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único de la ruta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idCedis</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al CEDIS asignado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idTipoRuta</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al tipo de ruta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Nombre identificador de la ruta</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="entity-header" style="margin-top: 30px;">
+                <span class="entity-name">📅 VisitaCliente</span>
+                <div><span class="badge-entity">Transaccional</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único de la visita</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idRuta</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia a la ruta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idCliente</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al cliente visitado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idUsuario</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Nickname del usuario que realiza la visita</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fecha</strong></td>
+                        <td><span class="data-type">DATETIME</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Fecha y hora de la visita</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estatus</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Estado de la visita (Programada, Completada, Cancelada)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="entregas">
+            <div class="entity-header">
+                <span class="entity-name">🚚 EntregaProducto</span>
+                <div>
+                    <span class="badge-entity">Transaccional</span>
+                    <span class="badge-entity">Ventas</span>
+                </div>
+            </div>
+            <div class="description-box">
+                <strong>Descripción:</strong> Registro detallado de cada producto entregado en una visita a cliente. Esta tabla 
+                representa el detalle de la venta/entrega realizada.
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>idDetalleVisita</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador del detalle de visita</td>
+                    </tr>
+                    <tr>
+                        <td><strong>InventarioInicial</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Inventario inicial del producto antes de la entrega</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idProducto</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al producto entregado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cantidad</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Cantidad de unidades entregadas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><span class="data-type">FLOAT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Monto total de la entrega (Cantidad × Precio)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idPromocion</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="nullable">SI</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia a promoción aplicada (si existe)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idVisitaCliente</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia a la visita cliente</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idUsuario</strong></td>
+                        <td><span class="data-type">VARCHAR(50)</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Vendedor responsable de la entrega</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="entity-section" id="devoluciones">
+            <div class="entity-header">
+                <span class="entity-name">⚠️ CausaDevolucion</span>
+                <div><span class="badge-entity">Catálogo</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único de la causa</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td><span class="data-type">VARCHAR(100)</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Descripción de la causa (Caducado, Dañado, Error, etc.)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="entity-header" style="margin-top: 30px;">
+                <span class="entity-name">↩️ Devolucion</span>
+                <div><span class="badge-entity">Transaccional</span></div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Campo</th>
+                        <th>Tipo de Dato</th>
+                        <th>Nulo</th>
+                        <th>Llave</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>id</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="pk">PK</span></td>
+                        <td>Identificador único de la devolución</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idDetalleVisita</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al detalle de visita original</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idProducto</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia al producto devuelto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>idCausaDevolucion</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td><span class="fk">FK</span></td>
+                        <td>Referencia a la causa de devolución</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cantidad</strong></td>
+                        <td><span class="data-type">INT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Cantidad de unidades devueltas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><span class="data-type">FLOAT</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Monto total de la devolución</td>
+                    </tr>
+                    <tr>
+                        <td><strong>fCreacion</strong></td>
+                        <td><span class="data-type">DATETIME</span></td>
+                        <td class="not-null">NO</td>
+                        <td>-</td>
+                        <td>Fecha de registro de la devolución</td>
+                    </tr>
+                    <tr>
+                        <td><strong>nAutorizacion</strong></td>
+                        <td><span class="data-type">BOOLEAN</span></td>
+                        <td class="nullable">SI</td>
+                        <td>-</td>
+                        <td>Estado de autorización (true=Autorizada, false=Pendiente)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="relaciones">3. Diagrama de Relaciones entre Entidades</h2>
+        
+        <div class="relation-diagram">
+<pre>
+┌─────────────┐       ┌──────────────┐       ┌─────────────┐
+│   CEDIS     │       │ TipoUsuario  │       │    Marca    │
+│  (PK: id)   │       │  (PK: id)    │       │  (PK: id)   │
+└──────┬──────┘       └──────┬───────┘       └──────┬──────┘
+       │                     │                       │
+       │ 1:N                 │ 1:N                   │ 1:N
+       ▼                     ▼                       ▼
+┌─────────────┐       ┌──────────────┐       ┌─────────────┐
+│   Cliente   │       │   Usuario    │       │   Grupo     │
+│  (PK: id)   │       │(PK: Nickname)│       │  (PK: id)   │
+│ (FK: idCedis)│      │(FK: idCedis, │       └──────┬──────┘
+└──────┬──────┘       │ idTipo)      │              │ 1:N
+       │ 1:N          └──────────────┘              ▼
+       │                                          ┌─────────────┐
+       │                                          │  Producto   │
+       │                                          │  (PK: id)   │
+       │                                          │(FK:idMarca, │
+       │                                          │ idGrupo)    │
+       │                                          └──────┬──────┘
+       │                                                 │ 1:N
+       ▼                                                 ▼
+┌─────────────┐       ┌──────────────┐       ┌─────────────┐
+│    Ruta     │       │VisitaCliente │       │ CausaDev    │
+│  (PK: id)   │       │  (PK: id)    │       │  (PK: id)   │
+│(FK:idCedis) │       │(FK:idRuta,   │       └──────┬──────┘
+└──────┬──────┘       │ idCliente,  │              │ 1:N
+       │ 1:N          │ idUsuario)  │              ▼
+       │              └──────┬───────┘       ┌─────────────┐
+       │                     │ 1:N            │ Devolucion  │
+       ▼                     ▼                │  (PK: id)   │
+┌─────────────────────────────────────────┐  │(FK:detalle, │
+│         EntregaProducto                  │  │ idProducto, │
+│  (PK: idDetalleVisita, idProducto)      │  │ idCausa)    │
+│  (FK: idVisitaCliente, idProducto,      │  └─────────────┘
+│   idUsuario)                            │
+└─────────────────────────────────────────┘
+</pre>
+        </div>
+
+        <h2 id="webservices">4. WebServices Principales (fWS.asmx.cs)</h2>
+        
+        <p>El sistema original implementa 294 WebMethods para gestionar todas las operaciones. Los más relevantes por módulo son:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Módulo</th>
+                    <th>WebServices (Métodos)</th>
+                    <th>Operación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>CEDIS</strong></td>
+                    <td><code>i_Cedis, s_Cedis, sL_Cedis, u_Cedis, d_Cedis</code></td>
+                    <td>Insertar, Seleccionar, Seleccionar Lista, Actualizar, Eliminar</td>
+                </tr>
+                <tr>
+                    <td><strong>TipoUsuario</strong></td>
+                    <td><code>i_TipoUsuario, s_TipoUsuario, sL_TipoUsuario, u_TipoUsuario, d_TipoUsuario</code></td>
+                    <td>CRUD completo de tipos de usuario</td>
+                </tr>
+                <tr>
+                    <td><strong>Usuario</strong></td>
+                    <td><code>i_Usuario, s_Usuario, sL_Usuario, s_UsuarioVen, s_OneUsuario, u_Usuario, d_Usuario</code></td>
+                    <td>Gestión completa de usuarios</td>
+                </tr>
+                <tr>
+                    <td><strong>Marca</strong></td>
+                    <td><code>i_Marca, s_Marca, sL_Marca, u_Marca, d_Marca</code></td>
+                    <td>CRUD de marcas de productos</td>
+                </tr>
+                <tr>
+                    <td><strong>Grupo</strong></td>
+                    <td><code>i_Grupo, s_Grupo, sL_Grupo, u_Grupo, d_Grupo</code></td>
+                    <td>CRUD de grupos/categorías</td>
+                </tr>
+                <tr>
+                    <td><strong>Producto</strong></td>
+                    <td><code>i_Producto, s_Producto, sL_Producto, u_Producto, d_Producto, s_ProductoCode, s_LastidProducto</code></td>
+                    <td>Gestión completa de productos</td>
+                </tr>
+                <tr>
+                    <td><strong>Cliente</strong></td>
+                    <td><code>i_Cliente, s_Cliente, sL_Cliente, u_Cliente, d_Cliente</code></td>
+                    <td>CRUD de clientes</td>
+                </tr>
+                <tr>
+                    <td><strong>Ruta</strong></td>
+                    <td><code>i_Ruta, s_Ruta, sL_Ruta, u_Ruta, d_Ruta</code></td>
+                    <td>Gestión de rutas de reparto</td>
+                </tr>
+                <tr>
+                    <td><strong>Visita</strong></td>
+                    <td><code>i_VisitaCliente, s_VisitaCliente, u_VisitaCliente</code></td>
+                    <td>Registro y seguimiento de visitas</td>
+                </tr>
+                <tr>
+                    <td><strong>Entrega</strong></td>
+                    <td><code>i_EntregaProducto, s_EntregaProducto, u_EntregaProducto</code></td>
+                    <td>Registro de entregas</td>
+                </tr>
+                <tr>
+                    <td><strong>Devolución</strong></td>
+                    <td><code>i_Devolucion, s_Devolucion, u_Devolucion, i_CausaDevolucion, s_CausaDevolucion</code></td>
+                    <td>Gestión de devoluciones</td>
+                </tr>
+                <tr>
+                    <td><strong>Reportes</strong></td>
+                    <td><code>s_VentaDiaRuta, s_VentaAcumulada, s_LiquidacionDiaRuta, s_Indicador</code></td>
+                    <td>Consultas para reportes y dashboard</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer>
+            <p><strong>Diccionario de Datos y Módulos del Sistema SICAMEX</strong></p>
+            <p>Documento generado basado en el análisis del código fuente: fWS.asmx.cs (18,019 líneas), 68 clases DAO</p>
+            <p>&copy; 2026 - Documentación técnica con fines de análisis y desarrollo</p>
+        </footer>
+    </div>
+</body>
+</html>

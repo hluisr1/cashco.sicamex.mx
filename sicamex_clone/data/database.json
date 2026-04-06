@@ -1,0 +1,241 @@
+{
+  "cedis": [
+    {
+      "id": 1,
+      "Nombre": "CEDIS Central CDMX",
+      "Latitud": 19.4326,
+      "Longitud": -99.1332,
+      "nEmpresa": "SICAMEX SA de CV",
+      "RFC": "SCM850101ABC",
+      "Telefono": "55-1234-5678",
+      "Domicilio": "Av. Central 123, Ciudad de México"
+    },
+    {
+      "id": 2,
+      "Nombre": "CEDIS Monterrey",
+      "Latitud": 25.6866,
+      "Longitud": -100.3161,
+      "nEmpresa": "SICAMEX Norte",
+      "RFC": "SCM850101DEF",
+      "Telefono": "81-2345-6789",
+      "Domicilio": "Blvd. Industrial 456, Monterrey, NL"
+    },
+    {
+      "id": 3,
+      "Nombre": "CEDIS Guadalajara",
+      "Latitud": 20.6597,
+      "Longitud": -103.3496,
+      "nEmpresa": "SICAMEX Occidente",
+      "RFC": "SCM850101GHI",
+      "Telefono": "33-3456-7890",
+      "Domicilio": "Calle Comercio 789, Guadalajara, JAL"
+    },
+    {
+      "id": 4,
+      "Nombre": "CEDIS Puebla",
+      "Latitud": 19.0413,
+      "Longitud": -98.2062,
+      "nEmpresa": "SICAMEX Oriente",
+      "RFC": "SCM850101JKL",
+      "Telefono": "22-4567-8901",
+      "Domicilio": "Av. Las Américas 321, Puebla, PUE"
+    },
+    {
+      "id": 5,
+      "Nombre": "CEDIS Mérida",
+      "Latitud": 20.9674,
+      "Longitud": -89.5926,
+      "nEmpresa": "SICAMEX Sureste",
+      "RFC": "SCM850101MNO",
+      "Telefono": "99-5678-9012",
+      "Domicilio": "Calle 60 #654, Mérida, YUC"
+    }
+  ],
+  "tipoUsuario": [
+    {"id": 1, "Nombre": "Administrador", "Auth": 100, "Descripcion": "Acceso completo al sistema"},
+    {"id": 2, "Nombre": "Supervisor", "Auth": 75, "Descripcion": "Gestión de rutas y usuarios"},
+    {"id": 3, "Nombre": "Vendedor", "Auth": 50, "Descripcion": "Captura de ventas y visitas"},
+    {"id": 4, "Nombre": "Almacenista", "Auth": 40, "Descripcion": "Control de inventarios y cargas"},
+    {"id": 5, "Nombre": "Consultor", "Auth": 25, "Descripcion": "Solo lectura de reportes"}
+  ],
+  "usuarios": [
+    {
+      "Nickname": "admin",
+      "idCedis": 1,
+      "idTipo": 1,
+      "Nombre": "Carlos",
+      "ApellidoP": "Martínez",
+      "ApellidoM": "López",
+      "Celular": "55-1111-2222",
+      "Activo": true,
+      "Email": "carlos.martinez@sicamex.mx",
+      "fAlta": "2024-01-15T08:00:00",
+      "Cedis": "CEDIS Central CDMX",
+      "TipoUsuario": "Administrador",
+      "Auth": 100
+    },
+    {
+      "Nickname": "supervisor1",
+      "idCedis": 1,
+      "idTipo": 2,
+      "Nombre": "Ana",
+      "ApellidoP": "García",
+      "ApellidoM": "Ruiz",
+      "Celular": "55-2222-3333",
+      "Activo": true,
+      "Email": "ana.garcia@sicamex.mx",
+      "fAlta": "2024-02-01T08:00:00",
+      "Cedis": "CEDIS Central CDMX",
+      "TipoUsuario": "Supervisor",
+      "Auth": 75
+    },
+    {
+      "Nickname": "vendedor1",
+      "idCedis": 1,
+      "idTipo": 3,
+      "Nombre": "Luis",
+      "ApellidoP": "Hernández",
+      "ApellidoM": "Díaz",
+      "Celular": "55-3333-4444",
+      "Activo": true,
+      "Email": "luis.hernandez@sicamex.mx",
+      "fAlta": "2024-02-15T08:00:00",
+      "Cedis": "CEDIS Central CDMX",
+      "TipoUsuario": "Vendedor",
+      "Auth": 50
+    },
+    {
+      "Nickname": "vendedor2",
+      "idCedis": 2,
+      "idTipo": 3,
+      "Nombre": "María",
+      "ApellidoP": "Rodríguez",
+      "ApellidoM": "Sánchez",
+      "Celular": "81-4444-5555",
+      "Activo": true,
+      "Email": "maria.rodriguez@sicamex.mx",
+      "fAlta": "2024-03-01T08:00:00",
+      "Cedis": "CEDIS Monterrey",
+      "TipoUsuario": "Vendedor",
+      "Auth": 50
+    },
+    {
+      "Nickname": "almacen1",
+      "idCedis": 1,
+      "idTipo": 4,
+      "Nombre": "Roberto",
+      "ApellidoP": "Torres",
+      "ApellidoM": "Flores",
+      "Celular": "55-5555-6666",
+      "Activo": true,
+      "Email": "roberto.torres@sicamex.mx",
+      "fAlta": "2024-03-10T08:00:00",
+      "Cedis": "CEDIS Central CDMX",
+      "TipoUsuario": "Almacenista",
+      "Auth": 40
+    }
+  ],
+  "marcas": [
+    {"id": 1, "Nombre": "Nestlé"},
+    {"id": 2, "Nombre": "Unilever"},
+    {"id": 3, "Nombre": "P&G"},
+    {"id": 4, "Nombre": "Coca-Cola"},
+    {"id": 5, "Nombre": "Bimbo"},
+    {"id": 6, "Nombre": "Kellogg's"},
+    {"id": 7, "Nombre": "Danone"},
+    {"id": 8, "Nombre": "PepsiCo"}
+  ],
+  "grupos": [
+    {"id": 1, "Nombre": "Lácteos"},
+    {"id": 2, "Nombre": "Abarrotes"},
+    {"id": 3, "Nombre": "Bebidas"},
+    {"id": 4, "Nombre": "Panificación"},
+    {"id": 5, "Nombre": "Cereales"},
+    {"id": 6, "Nombre": "Snacks"},
+    {"id": 7, "Nombre": "Cuidado Personal"},
+    {"id": 8, "Nombre": "Limpieza"}
+  ],
+  "productos": [
+    {"id": 1, "idMarca": 1, "idGrupo": 1, "Nombre": "Leche Nido 400g", "Precio": 85.50, "Codigo": "NES-001", "Marca": "Nestlé", "Grupo": "Lácteos", "Cargas": 150, "Ventas": 142, "Inventario": 8},
+    {"id": 2, "idMarca": 1, "idGrupo": 5, "Nombre": "Cereal Fitness 375g", "Precio": 62.00, "Codigo": "NES-002", "Marca": "Nestlé", "Grupo": "Cereales", "Cargas": 200, "Ventas": 185, "Inventario": 15},
+    {"id": 3, "idMarca": 2, "idGrupo": 2, "Nombre": "Knorr Suiza Caldo Tomate", "Precio": 18.50, "Codigo": "UNI-001", "Marca": "Unilever", "Grupo": "Abarrotes", "Cargas": 500, "Ventas": 478, "Inventario": 22},
+    {"id": 4, "idMarca": 2, "idGrupo": 8, "Nombre": "Axion Limón 400ml", "Precio": 22.00, "Codigo": "UNI-002", "Marca": "Unilever", "Grupo": "Limpieza", "Cargas": 300, "Ventas": 289, "Inventario": 11},
+    {"id": 5, "idMarca": 3, "idGrupo": 7, "Nombre": "Head & Shoulders 400ml", "Precio": 68.00, "Codigo": "PNG-001", "Marca": "P&G", "Grupo": "Cuidado Personal", "Cargas": 180, "Ventas": 165, "Inventario": 15},
+    {"id": 6, "idMarca": 3, "idGrupo": 8, "Nombre": "Ariel Líquido 1L", "Precio": 95.00, "Codigo": "PNG-002", "Marca": "P&G", "Grupo": "Limpieza", "Cargas": 120, "Ventas": 112, "Inventario": 8},
+    {"id": 7, "idMarca": 4, "idGrupo": 3, "Nombre": "Coca-Cola 600ml", "Precio": 18.00, "Codigo": "COC-001", "Marca": "Coca-Cola", "Grupo": "Bebidas", "Cargas": 1000, "Ventas": 985, "Inventario": 15},
+    {"id": 8, "idMarca": 4, "idGrupo": 3, "Nombre": "Del Valle Mango 1L", "Precio": 24.00, "Codigo": "COC-002", "Marca": "Coca-Cola", "Grupo": "Bebidas", "Cargas": 400, "Ventas": 378, "Inventario": 22},
+    {"id": 9, "idMarca": 5, "idGrupo": 4, "Nombre": "Pan Blanco Bimbo 550g", "Precio": 42.00, "Codigo": "BIM-001", "Marca": "Bimbo", "Grupo": "Panificación", "Cargas": 600, "Ventas": 592, "Inventario": 8},
+    {"id": 10, "idMarca": 5, "idGrupo": 6, "Nombre": "Marinela Gansito 6pz", "Precio": 28.00, "Codigo": "BIM-002", "Marca": "Bimbo", "Grupo": "Snacks", "Cargas": 450, "Ventas": 435, "Inventario": 15},
+    {"id": 11, "idMarca": 6, "idGrupo": 5, "Nombre": "Zucaritas 500g", "Precio": 72.00, "Codigo": "KEL-001", "Marca": "Kellogg's", "Grupo": "Cereales", "Cargas": 220, "Ventas": 198, "Inventario": 22},
+    {"id": 12, "idMarca": 6, "idGrupo": 6, "Nombre": "Pringles Original 158g", "Precio": 55.00, "Codigo": "KEL-002", "Marca": "Kellogg's", "Grupo": "Snacks", "Cargas": 180, "Ventas": 167, "Inventario": 13},
+    {"id": 13, "idMarca": 7, "idGrupo": 1, "Nombre": "Yogurt Activia 500g", "Precio": 32.00, "Codigo": "DAN-001", "Marca": "Danone", "Grupo": "Lácteos", "Cargas": 350, "Ventas": 328, "Inventario": 22},
+    {"id": 14, "idMarca": 7, "idGrupo": 1, "Nombre": "Jumex Arándano 1L", "Precio": 38.00, "Codigo": "DAN-002", "Marca": "Danone", "Grupo": "Lácteos", "Cargas": 280, "Ventas": 265, "Inventario": 15},
+    {"id": 15, "idMarca": 8, "idGrupo": 3, "Nombre": "Sabritas Clásicas 240g", "Precio": 45.00, "Codigo": "PEP-001", "Marca": "PepsiCo", "Grupo": "Snacks", "Cargas": 400, "Ventas": 382, "Inventario": 18}
+  ],
+  "clientes": [
+    {"id": 1, "idCedis": 1, "NombreTienda": "Minisol Centro", "Nombre": "Juan", "ApellidoP": "Pérez", "ApellidoM": "Gómez", "Celular": "55-1234-5678", "Correo": "juan.perez@minisol.mx", "fCreacion": "2024-01-10T10:00:00", "Cedis": "CEDIS Central CDMX", "Latitud": 19.4338, "Longitud": -99.1370, "Activo": true},
+    {"id": 2, "idCedis": 1, "NombreTienda": "Abarrotes Doña María", "Nombre": "María", "ApellidoP": "Santos", "ApellidoM": "Luna", "Celular": "55-2345-6789", "Correo": "m.santos@gmail.com", "fCreacion": "2024-01-15T11:30:00", "Cedis": "CEDIS Central CDMX", "Latitud": 19.4280, "Longitud": -99.1320, "Activo": true},
+    {"id": 3, "idCedis": 1, "NombreTienda": "Tienda Express", "Nombre": "Carlos", "ApellidoP": "Ramírez", "ApellidoM": "Ortiz", "Celular": "55-3456-7890", "Correo": "c.ramirez@express.mx", "fCreacion": "2024-01-20T09:15:00", "Cedis": "CEDIS Central CDMX", "Latitud": 19.4400, "Longitud": -99.1450, "Activo": true},
+    {"id": 4, "idCedis": 2, "NombreTienda": "Super Norte", "Nombre": "Pedro", "ApellidoP": "González", "ApellidoM": "Méndez", "Celular": "81-4567-8901", "Correo": "p.gonzalez@supernorte.mx", "fCreacion": "2024-02-01T08:45:00", "Cedis": "CEDIS Monterrey", "Latitud": 25.6800, "Longitud": -100.3200, "Activo": true},
+    {"id": 5, "idCedis": 2, "NombreTienda": "Mini Price", "Nombre": "Laura", "ApellidoP": "Fernández", "ApellidoM": "Castro", "Celular": "81-5678-9012", "Correo": "l.fernandez@miniprice.mx", "fCreacion": "2024-02-05T14:20:00", "Cedis": "CEDIS Monterrey", "Latitud": 25.6900, "Longitud": -100.3100, "Activo": true},
+    {"id": 6, "idCedis": 3, "NombreTienda": "La Guadalupana", "Nombre": "Rosa", "ApellidoP": "Vázquez", "ApellidoM": "Jiménez", "Celular": "33-6789-0123", "Correo": "r.vazquez@guadalupana.mx", "fCreacion": "2024-02-10T10:30:00", "Cedis": "CEDIS Guadalajara", "Latitud": 20.6650, "Longitud": -103.3550, "Activo": true},
+    {"id": 7, "idCedis": 3, "NombreTienda": "Oxxo Chapultepec", "Nombre": "Miguel", "ApellidoP": "Álvarez", "ApellidoM": "Ramos", "Celular": "33-7890-1234", "Correo": "m.alvarez@oxxo.mx", "fCreacion": "2024-02-15T16:00:00", "Cedis": "CEDIS Guadalajara", "Latitud": 20.6550, "Longitud": -103.3400, "Activo": true},
+    {"id": 8, "idCedis": 4, "NombreTienda": "Comercial Puebla", "Nombre": "José", "ApellidoP": "Morales", "ApellidoM": "Silva", "Celular": "22-8901-2345", "Correo": "j.morales@comercialpuebla.mx", "fCreacion": "2024-02-20T11:45:00", "Cedis": "CEDIS Puebla", "Latitud": 19.0450, "Longitud": -98.2100, "Activo": true},
+    {"id": 9, "idCedis": 5, "NombreTienda": "Tienda Maya", "Nombre": "Elena", "ApellidoP": "Chan", "ApellidoM": "Ku", "Celular": "99-9012-3456", "Correo": "e.chan@tiendamaya.mx", "fCreacion": "2024-03-01T09:00:00", "Cedis": "CEDIS Mérida", "Latitud": 20.9700, "Longitud": -89.6000, "Activo": true},
+    {"id": 10, "idCedis": 5, "NombreTienda": "El Cenote", "Nombre": "Francisco", "ApellidoP": "Ek", "ApellidoM": "Canul", "Celular": "99-0123-4567", "Correo": "f.ek@elcenote.mx", "fCreacion": "2024-03-05T13:30:00", "Cedis": "CEDIS Mérida", "Latitud": 20.9650, "Longitud": -89.5850, "Activo": true}
+  ],
+  "rutas": [
+    {"id": 1, "idCedis": 1, "idTipoRuta": 1, "Nombre": "Ruta Centro CDMX", "TipoRuta": "Reparto", "Cedis": "CEDIS Central CDMX"},
+    {"id": 2, "idCedis": 1, "idTipoRuta": 1, "Nombre": "Ruta Sur CDMX", "TipoRuta": "Reparto", "Cedis": "CEDIS Central CDMX"},
+    {"id": 3, "idCedis": 2, "idTipoRuta": 1, "Nombre": "Ruta Industrial MTY", "TipoRuta": "Reparto", "Cedis": "CEDIS Monterrey"},
+    {"id": 4, "idCedis": 3, "idTipoRuta": 1, "Nombre": "Ruta Metropolitana GDL", "TipoRuta": "Reparto", "Cedis": "CEDIS Guadalajara"},
+    {"id": 5, "idCedis": 4, "idTipoRuta": 1, "Nombre": "Ruta Angelópolis", "TipoRuta": "Reparto", "Cedis": "CEDIS Puebla"},
+    {"id": 6, "idCedis": 5, "idTipoRuta": 1, "Nombre": "Ruta Centro Mérida", "TipoRuta": "Reparto", "Cedis": "CEDIS Mérida"}
+  ],
+  "visitasCliente": [
+    {"id": 1, "idRuta": 1, "idCliente": 1, "idUsuario": "vendedor1", "Fecha": "2025-04-01T09:00:00", "Estatus": "Completada"},
+    {"id": 2, "idRuta": 1, "idCliente": 2, "idUsuario": "vendedor1", "Fecha": "2025-04-01T10:30:00", "Estatus": "Completada"},
+    {"id": 3, "idRuta": 1, "idCliente": 3, "idUsuario": "vendedor1", "Fecha": "2025-04-01T12:00:00", "Estatus": "Completada"},
+    {"id": 4, "idRuta": 3, "idCliente": 4, "idUsuario": "vendedor2", "Fecha": "2025-04-01T08:30:00", "Estatus": "Completada"},
+    {"id": 5, "idRuta": 3, "idCliente": 5, "idUsuario": "vendedor2", "Fecha": "2025-04-01T11:00:00", "Estatus": "Completada"},
+    {"id": 6, "idRuta": 4, "idCliente": 6, "idUsuario": "vendedor1", "Fecha": "2025-04-02T09:15:00", "Estatus": "Completada"},
+    {"id": 7, "idRuta": 4, "idCliente": 7, "idUsuario": "vendedor1", "Fecha": "2025-04-02T11:30:00", "Estatus": "Completada"},
+    {"id": 8, "idRuta": 5, "idCliente": 8, "idUsuario": "vendedor2", "Fecha": "2025-04-02T10:00:00", "Estatus": "Completada"},
+    {"id": 9, "idRuta": 6, "idCliente": 9, "idUsuario": "vendedor1", "Fecha": "2025-04-02T08:45:00", "Estatus": "Completada"},
+    {"id": 10, "idRuta": 6, "idCliente": 10, "idUsuario": "vendedor1", "Fecha": "2025-04-02T13:00:00", "Estatus": "Completada"}
+  ],
+  "entregasProducto": [
+    {"idDetalleVisita": 1, "InventarioInicial": 10, "idProducto": 1, "Cantidad": 12, "Total": 1026.00, "idPromocion": 0, "NombreTienda": "Minisol Centro", "idVisitaCliente": 1, "Producto": "Leche Nido 400g", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 1, "InventarioInicial": 5, "idProducto": 7, "Cantidad": 24, "Total": 432.00, "idPromocion": 0, "NombreTienda": "Minisol Centro", "idVisitaCliente": 1, "Producto": "Coca-Cola 600ml", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 2, "InventarioInicial": 8, "idProducto": 3, "Cantidad": 30, "Total": 555.00, "idPromocion": 0, "NombreTienda": "Abarrotes Doña María", "idVisitaCliente": 2, "Producto": "Knorr Suiza Caldo Tomate", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 2, "InventarioInicial": 15, "idProducto": 9, "Cantidad": 20, "Total": 840.00, "idPromocion": 0, "NombreTienda": "Abarrotes Doña María", "idVisitaCliente": 2, "Producto": "Pan Blanco Bimbo 550g", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 3, "InventarioInicial": 6, "idProducto": 5, "Cantidad": 18, "Total": 1224.00, "idPromocion": 0, "NombreTienda": "Tienda Express", "idVisitaCliente": 3, "Producto": "Head & Shoulders 400ml", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 4, "InventarioInicial": 12, "idProducto": 2, "Cantidad": 24, "Total": 1488.00, "idPromocion": 0, "NombreTienda": "Super Norte", "idVisitaCliente": 4, "Producto": "Cereal Fitness 375g", "idUsuario": "vendedor2"},
+    {"idDetalleVisita": 4, "InventarioInicial": 20, "idProducto": 10, "Cantidad": 36, "Total": 1008.00, "idPromocion": 0, "NombreTienda": "Super Norte", "idVisitaCliente": 4, "Producto": "Marinela Gansito 6pz", "idUsuario": "vendedor2"},
+    {"idDetalleVisita": 5, "InventarioInicial": 8, "idProducto": 11, "Cantidad": 18, "Total": 1296.00, "idPromocion": 0, "NombreTienda": "Mini Price", "idVisitaCliente": 5, "Producto": "Zucaritas 500g", "idUsuario": "vendedor2"},
+    {"idDetalleVisita": 6, "InventarioInicial": 14, "idProducto": 13, "Cantidad": 30, "Total": 960.00, "idPromocion": 0, "NombreTienda": "La Guadalupana", "idVisitaCliente": 6, "Producto": "Yogurt Activia 500g", "idUsuario": "vendedor1"},
+    {"idDetalleVisita": 7, "InventarioInicial": 10, "idProducto": 15, "Cantidad": 24, "Total": 1080.00, "idPromocion": 0, "NombreTienda": "Oxxo Chapultepec", "idVisitaCliente": 7, "Producto": "Sabritas Clásicas 240g", "idUsuario": "vendedor1"}
+  ],
+  "causaDevolucion": [
+    {"id": 1, "Nombre": "Producto caducado"},
+    {"id": 2, "Nombre": "Empaque dañado"},
+    {"id": 3, "Nombre": "Error en pedido"},
+    {"id": 4, "Nombre": "Devolución por cliente"},
+    {"id": 5, "Nombre": "Merma en tránsito"}
+  ],
+  "devoluciones": [
+    {"id": 1, "idDetalleVisita": 1, "idProducto": 1, "idCausaDevolucion": 1, "Cantidad": 2, "Total": 171.00, "fCreacion": "2025-04-02T10:00:00", "nAutorizacion": true, "Ruta": "Ruta Centro CDMX", "NombreTienda": "Minisol Centro", "Producto": "Leche Nido 400g", "Descripcion": "Fecha de caducidad próxima", "Entrada": "2025-04-02T14:00:00"},
+    {"id": 2, "idDetalleVisita": 4, "idProducto": 10, "idCausaDevolucion": 2, "Cantidad": 3, "Total": 84.00, "fCreacion": "2025-04-02T11:30:00", "nAutorizacion": true, "Ruta": "Ruta Industrial MTY", "NombreTienda": "Super Norte", "Producto": "Marinela Gansito 6pz", "Descripcion": "Cajas aplastadas en transporte", "Entrada": "2025-04-02T16:00:00"},
+    {"id": 3, "idDetalleVisita": 6, "idProducto": 13, "idCausaDevolucion": 3, "Cantidad": 5, "Total": 160.00, "fCreacion": "2025-04-03T09:15:00", "nAutorizacion": false, "Ruta": "Ruta Metropolitana GDL", "NombreTienda": "La Guadalupana", "Producto": "Yogurt Activia 500g", "Descripcion": "Cliente solicitó cambio de sabor", "Entrada": "2025-04-03T12:30:00"}
+  ],
+  "indicadores": [
+    {"Concepto": "Ventas Totales Mes", "Valor": 125480.50, "Meta": 150000.00, "Porcentaje": 83.65},
+    {"Concepto": "Entregas Completadas", "Valor": 245, "Meta": 300, "Porcentaje": 81.67},
+    {"Concepto": "Clientes Visitados", "Valor": 189, "Meta": 200, "Porcentaje": 94.50},
+    {"Concepto": "Ticket Promedio", "Valor": 512.17, "Meta": 550.00, "Porcentaje": 93.12},
+    {"Concepto": "Devoluciones Mes", "Valor": 4250.00, "Meta": 3000.00, "Porcentaje": -41.67},
+    {"Concepto": "Productos Más Vendidos", "Valor": "Coca-Cola 600ml", "Meta": "-", "Porcentaje": 0},
+    {"Concepto": "Ruta Más Productiva", "Valor": "Ruta Centro CDMX", "Meta": "-", "Porcentaje": 0},
+    {"Concepto": "Eficiencia de Cobranza", "Valor": 96.5, "Meta": 98.0, "Porcentaje": 98.47}
+  ]
+}
