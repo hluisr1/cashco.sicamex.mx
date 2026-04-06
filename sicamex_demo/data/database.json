@@ -1,0 +1,73 @@
+{
+  "cedis": [
+    {"id": 1, "nombre": "CDMX Norte", "direccion": "Av. Central 123, Ciudad de México", "telefono": "55-1234-5678"},
+    {"id": 2, "nombre": "Guadalajara", "direccion": "Blvd. Industrial 456, Guadalajara", "telefono": "33-9876-5432"},
+    {"id": 3, "nombre": "Monterrey", "direccion": "Calle Comercio 789, Monterrey", "telefono": "81-5555-1234"},
+    {"id": 4, "nombre": "Puebla", "direccion": "Av. Reforma 321, Puebla", "telefono": "22-4444-6789"},
+    {"id": 5, "nombre": "Tijuana", "direccion": "Zona Industrial 654, Tijuana", "telefono": "66-3333-9876"}
+  ],
+  "usuarios": [
+    {"id": 1, "nombre": "Juan Pérez", "email": "juan.perez@sicamex.com", "tipo": "Administrador", "idCedis": 1, "activo": true},
+    {"id": 2, "nombre": "María García", "email": "maria.garcia@sicamex.com", "tipo": "Supervisor", "idCedis": 1, "activo": true},
+    {"id": 3, "nombre": "Carlos López", "email": "carlos.lopez@sicamex.com", "tipo": "Ruta", "idCedis": 2, "activo": true},
+    {"id": 4, "nombre": "Ana Martínez", "email": "ana.martinez@sicamex.com", "tipo": "Supervisor", "idCedis": 3, "activo": true},
+    {"id": 5, "nombre": "Roberto Sánchez", "email": "roberto.sanchez@sicamex.com", "tipo": "Ruta", "idCedis": 4, "activo": true}
+  ],
+  "rutas": [
+    {"id": 1, "nombre": "Ruta Norte A", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Lunes", "activa": true},
+    {"id": 2, "nombre": "Ruta Norte B", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Martes", "activa": true},
+    {"id": 3, "nombre": "Ruta Centro", "idCedis": 1, "supervisor": "Juan Pérez", "diaOperacion": "Miércoles", "activa": true},
+    {"id": 4, "nombre": "Ruta Sur", "idCedis": 1, "supervisor": "Juan Pérez", "diaOperacion": "Jueves", "activa": true},
+    {"id": 5, "nombre": "Ruta Oriente", "idCedis": 1, "supervisor": "María García", "diaOperacion": "Viernes", "activa": true},
+    {"id": 6, "nombre": "Ruta GDL Norte", "idCedis": 2, "supervisor": "Carlos López", "diaOperacion": "Lunes", "activa": true},
+    {"id": 7, "nombre": "Ruta GDL Sur", "idCedis": 2, "supervisor": "Carlos López", "diaOperacion": "Martes", "activa": true}
+  ],
+  "clientes": [
+    {"id": 1, "nombreTienda": "Oxxo Centro", "calle": "Av. Juárez", "numeroExt": "123", "colonia": "Centro", "codigoPostal": "06600", "latitud": 19.4326, "longitud": -99.1332, "idRuta": 1, "dia": 1, "secuencia": 1, "activo": true},
+    {"id": 2, "nombreTienda": "7 Eleven Reforma", "calle": "Paseo de la Reforma", "numeroExt": "456", "colonia": "Juárez", "codigoPostal": "06600", "latitud": 19.4284, "longitud": -99.1676, "idRuta": 1, "dia": 1, "secuencia": 2, "activo": true},
+    {"id": 3, "nombreTienda": "Farmacia Guadalajara", "calle": "Calle Madero", "numeroExt": "789", "colonia": "Centro Histórico", "codigoPostal": "06000", "latitud": 19.4338, "longitud": -99.1377, "idRuta": 1, "dia": 1, "secuencia": 3, "activo": true},
+    {"id": 4, "nombreTienda": "Abarrotes El Sol", "calle": "Av. Insurgentes", "numeroExt": "321", "colonia": "Roma", "codigoPostal": "06700", "latitud": 19.4185, "longitud": -99.1640, "idRuta": 2, "dia": 2, "secuencia": 1, "activo": true},
+    {"id": 5, "nombreTienda": "Mini Super Luna", "calle": "Calle Durango", "numeroExt": "654", "colonia": "Roma Norte", "codigoPostal": "06700", "latitud": 19.4203, "longitud": -99.1598, "idRuta": 2, "dia": 2, "secuencia": 2, "activo": true},
+    {"id": 6, "nombreTienda": "Tienda La Esquina", "calle": "Av. Chapultepec", "numeroExt": "987", "colonia": "Condesa", "codigoPostal": "06140", "latitud": 19.4150, "longitud": -99.1712, "idRuta": 3, "dia": 3, "secuencia": 1, "activo": true},
+    {"id": 7, "nombreTienda": "Comercial del Valle", "calle": "Calle Amsterdam", "numeroExt": "147", "colonia": "Hipódromo", "codigoPostal": "06100", "latitud": 19.4098, "longitud": -99.1689, "idRuta": 3, "dia": 3, "secuencia": 2, "activo": true},
+    {"id": 8, "nombreTienda": "Distribuidora Azteca", "calle": "Av. Universidad", "numeroExt": "258", "colonia": "Del Valle", "codigoPostal": "03100", "latitud": 19.3850, "longitud": -99.1598, "idRuta": 4, "dia": 4, "secuencia": 1, "activo": true},
+    {"id": 9, "nombreTienda": "Mercado San Pedro", "calle": "Calle Xola", "numeroExt": "369", "colonia": "Nápoles", "codigoPostal": "03810", "latitud": 19.3789, "longitud": -99.1543, "idRuta": 4, "dia": 4, "secuencia": 2, "activo": true},
+    {"id": 10, "nombreTienda": "Express Delicias", "calle": "Av. Coyoacán", "numeroExt": "741", "colonia": "Del Carmen", "codigoPostal": "04100", "latitud": 19.3467, "longitud": -99.1618, "idRuta": 5, "dia": 5, "secuencia": 1, "activo": true}
+  ],
+  "productos": [
+    {"id": 1, "nombre": "Coca Cola 600ml", "grupo": "Bebidas", "marca": "Coca-Cola", "precio": 12.00, "codigo": "CC600", "idCedis": 1},
+    {"id": 2, "nombre": "Pepsi 600ml", "grupo": "Bebidas", "marca": "PepsiCo", "precio": 11.50, "codigo": "PEP600", "idCedis": 1},
+    {"id": 3, "nombre": "Sabritas Original 55g", "grupo": "Botanas", "marca": "Sabritas", "precio": 18.00, "codigo": "SAB55", "idCedis": 1},
+    {"id": 4, "nombre": "Marinela Conchas", "grupo": "Panificación", "marca": "Marinela", "precio": 22.00, "codigo": "MAR001", "idCedis": 1},
+    {"id": 5, "nombre": "Bimbo Blanco Grande", "grupo": "Panificación", "marca": "Bimbo", "precio": 38.00, "codigo": "BIM001", "idCedis": 1},
+    {"id": 6, "nombre": "Agua Ciel 1L", "grupo": "Bebidas", "marca": "Coca-Cola", "precio": 10.00, "codigo": "CIE1L", "idCedis": 1},
+    {"id": 7, "nombre": "Doritos Nacho 45g", "grupo": "Botanas", "marca": "Sabritas", "precio": 17.00, "codigo": "DOR45", "idCedis": 1},
+    {"id": 8, "nombre": "Galletas Emperador", "grupo": "Galletas", "marca": "Marinela", "precio": 15.00, "codigo": "EMP001", "idCedis": 1},
+    {"id": 9, "nombre": "Jumex Mango 330ml", "grupo": "Jugos", "marca": "Jumex", "precio": 13.00, "codigo": "JUM330", "idCedis": 1},
+    {"id": 10, "nombre": "Boing Manzana 500ml", "grupo": "Jugos", "marca": "Boing", "precio": 14.00, "codigo": "BOI500", "idCedis": 1}
+  ],
+  "ventasDia": [
+    {"Ruta": "Ruta Norte A", "Total": 15420.50, "Pedidos": 28, "Clientes": 25},
+    {"Ruta": "Ruta Norte B", "Total": 12350.75, "Pedidos": 22, "Clientes": 20},
+    {"Ruta": "Ruta Centro", "Total": 18900.00, "Pedidos": 35, "Clientes": 32},
+    {"Ruta": "Ruta Sur", "Total": 9875.25, "Pedidos": 18, "Clientes": 16},
+    {"Ruta": "Ruta Oriente", "Total": 21500.80, "Pedidos": 40, "Clientes": 38}
+  ],
+  "entregas": [
+    {"id": 1, "fecha": "2025-01-15", "idCliente": 1, "cliente": "Oxxo Centro", "total": 1250.50, "estado": "Entregado", "ruta": "Ruta Norte A"},
+    {"id": 2, "fecha": "2025-01-15", "idCliente": 2, "cliente": "7 Eleven Reforma", "total": 2340.00, "estado": "Entregado", "ruta": "Ruta Norte A"},
+    {"id": 3, "fecha": "2025-01-15", "idCliente": 3, "cliente": "Farmacia Guadalajara", "total": 890.75, "estado": "Pendiente", "ruta": "Ruta Norte A"},
+    {"id": 4, "fecha": "2025-01-15", "idCliente": 4, "cliente": "Abarrotes El Sol", "total": 1567.25, "estado": "Entregado", "ruta": "Ruta Norte B"},
+    {"id": 5, "fecha": "2025-01-15", "idCliente": 5, "cliente": "Mini Super Luna", "total": 2100.00, "estado": "Entregado", "ruta": "Ruta Norte B"}
+  ],
+  "devoluciones": [
+    {"id": 1, "fecha": "2025-01-14", "idCliente": 6, "cliente": "Tienda La Esquina", "total": 450.00, "causa": "Producto Caducado", "ruta": "Ruta Centro"},
+    {"id": 2, "fecha": "2025-01-14", "idCliente": 7, "cliente": "Comercial del Valle", "total": 320.50, "causa": "Empaque Dañado", "ruta": "Ruta Centro"},
+    {"id": 3, "fecha": "2025-01-13", "idCliente": 8, "cliente": "Distribuidora Azteca", "total": 780.00, "causa": "Error en Pedido", "ruta": "Ruta Sur"}
+  ],
+  "indicadores": [
+    {"mes": "Enero 2025", "rutasProgramadas": 150, "rutasCompletadas": 142, "eficiencia": 94.67, "ventasTotales": 1250000.00, "clientesVisitados": 450, "clientesCompraron": 380},
+    {"mes": "Diciembre 2024", "rutasProgramadas": 160, "rutasCompletadas": 155, "eficiencia": 96.88, "ventasTotales": 1450000.00, "clientesVisitados": 480, "clientesCompraron": 420},
+    {"mes": "Noviembre 2024", "rutasProgramadas": 145, "rutasCompletadas": 138, "eficiencia": 95.17, "ventasTotales": 1180000.00, "clientesVisitados": 430, "clientesCompraron": 365}
+  ]
+}

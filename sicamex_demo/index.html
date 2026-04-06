@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SICAMEX - Demo</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css" />
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="#" class="navbar-brand">
+                📦 SICAMEX - Demo
+            </a>
+            <div class="user-box" style="background: rgba(255,255,255,0.1); border-radius: 8px; padding: 10px 20px; display: flex; align-items: center; gap: 10px;">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23ecf0f1'/%3E%3Ctext x='50' y='55' text-anchor='middle' font-size='40' fill='%2334495e'%3EJP%3C/text%3E%3C/svg%3E" alt="User" style="width: 40px; height: 40px; border-radius: 50%;" />
+                <div>
+                    <span class="name" id="User" style="color: white; font-weight: 600; font-size: 14px;">Cargando...</span>
+                    <div class="status" style="color: #2ecc71; font-size: 11px;">● Online</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <nav id="sidebar">
+        <ul class="sidebar-menu">
+            <li><a href="#dashboard">📊 Dashboard</a></li>
+            <li>
+                <a href="#productos">📦 Productos</a>
+                <ul class="submenu">
+                    <li><a href="#lista-productos">Listado</a></li>
+                    <li><a href="#marcas">Marcas</a></li>
+                    <li><a href="#grupos">Grupos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#clientes">🏪 Clientes</a>
+                <ul class="submenu">
+                    <li><a href="#lista-clientes">Listado</a></li>
+                    <li><a href="#rutas">Rutas</a></li>
+                    <li><a href="#direcciones">Direcciones</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#ventas">💰 Ventas</a>
+                <ul class="submenu">
+                    <li><a href="#entregas">Entregas</a></li>
+                    <li><a href="#devoluciones">Devoluciones</a></li>
+                    <li><a href="#pagos">Pagos</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#reportes">📈 Reportes</a>
+                <ul class="submenu">
+                    <li><a href="#indicadores">Indicadores</a></li>
+                    <li><a href="#recorrido">Recorrido</a></li>
+                </ul>
+            </li>
+            <li><a href="#cedis">🏢 CEDIS</a></li>
+            <li><a href="#usuarios">👥 Usuarios</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="content-wrapper">
+        <div class="container">
+            
+            <!-- Sales Chart Section -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <div class="main-box-header">
+                            <h2 id="VDD">Venta del Día</h2>
+                            <div style="display: flex; align-items: center; gap: 20px;">
+                                <div class="form-group" style="margin: 0;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 5px 0 0 5px;">📅</span>
+                                        <input type="date" class="form-control" id="Fecha" style="border: none; border-radius: 0 5px 5px 0; padding: 8px 12px;" />
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin: 0;">
+                                    <strong style="color: #2ecc71; font-size: 20px;" id="TTL">$0.00</strong>
+                                </div>
+                                <button class="btn btn-primary" id="btnCEDIS" style="padding: 8px 20px; background: rgba(255,255,255,0.2); border: 1px solid white;" data-toggle="modal" data-target="#myModal">
+                                    Cambiar CEDIS
+                                </button>
+                            </div>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Cards Section -->
+            <div class="row" id="REG">
+                <div class="col-lg-4 col-md-6">
+                    <div class="main-box clearfix profile-box-contact">
+                        <div class="profile-box-header green-bg clearfix export" id="EXP_PROD">
+                            <span style="font-size: 48px; float: left;">📦</span>
+                            <h2>PRODUCTOS</h2>
+                            <div class="job-position">
+                                <strong>DESCARGA</strong> Listado de Productos
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="main-box clearfix profile-box-contact">
+                        <div class="profile-box-header green-bg clearfix export" id="EXP_CLTS">
+                            <span style="font-size: 48px; float: left;">🏪</span>
+                            <h2>CLIENTES</h2>
+                            <div class="job-position">
+                                <strong>DESCARGA</strong> Listado de Clientes por Ruta
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="main-box clearfix profile-box-contact">
+                        <div class="profile-box-header green-bg clearfix export" id="EXP_VENT">
+                            <span style="font-size: 48px; float: left;">💰</span>
+                            <h2>VENTAS</h2>
+                            <div class="job-position">
+                                <strong>DESCARGA</strong> Venta Acumulada (6 Semanas)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="main-box clearfix profile-box-contact">
+                        <div class="profile-box-header blue-bg clearfix export" id="EXP_INDI">
+                            <span style="font-size: 48px; float: left;">📈</span>
+                            <h2>INDICADORES</h2>
+                            <div class="job-position">
+                                <strong>DESCARGA</strong> Indicadores de las Rutas
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Tables Section -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <div class="main-box-header" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                            <h2>📦 Productos</h2>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Grupo</th>
+                                            <th>Marca</th>
+                                            <th>Precio</th>
+                                            <th>Código</th>
+                                            <th>CEDIS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productosTableBody">
+                                        <tr><td colspan="7" class="text-center">Cargando productos...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <div class="main-box-header" style="background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);">
+                            <h2>🏪 Clientes</h2>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tienda</th>
+                                            <th>Dirección</th>
+                                            <th>Colonia</th>
+                                            <th>CP</th>
+                                            <th>Ruta</th>
+                                            <th>Día</th>
+                                            <th>Estatus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="clientesTableBody">
+                                        <tr><td colspan="8" class="text-center">Cargando clientes...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="main-box">
+                        <div class="main-box-header" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <h2>🚚 Entregas</h2>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                            <th>Ruta</th>
+                                            <th>Total</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="entregasTableBody">
+                                        <tr><td colspan="6" class="text-center">Cargando entregas...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="main-box">
+                        <div class="main-box-header" style="background: linear-gradient(135deg, #834d9b 0%, #d04ed6 100%);">
+                            <h2>↩️ Devoluciones</h2>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Fecha</th>
+                                            <th>Cliente</th>
+                                            <th>Ruta</th>
+                                            <th>Total</th>
+                                            <th>Causa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="devolucionesTableBody">
+                                        <tr><td colspan="6" class="text-center">Cargando devoluciones...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="main-box">
+                        <div class="main-box-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <h2>📊 Indicadores de Rendimiento</h2>
+                        </div>
+                        <div class="main-box-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Mes</th>
+                                            <th>Rutas Programadas</th>
+                                            <th>Rutas Completadas</th>
+                                            <th>Eficiencia</th>
+                                            <th>Ventas Totales</th>
+                                            <th>Clientes Visitados</th>
+                                            <th>Clientes Compraron</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="indicadoresTableBody">
+                                        <tr><td colspan="7" class="text-center">Cargando indicadores...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer id="footer-bar">
+                <p id="footer-copyright">
+                    Powered by SICAMEX - Demo Local © 2025
+                </p>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Modal CEDIS -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">SELECCIONA UN CEDIS</h4>
+                    <button type="button" class="close" onclick="closeModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>CEDIS</label>
+                        <select class="form-control" id="edtidCedis" style="width: 100%;">
+                            <option value="0">Escoje el CEDIS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="CAMBIA_CEDIS" onclick="closeModal()">ACEPTAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Manager -->
+    <script src="js/data-manager.js"></script>
+    
+    <!-- Main Application -->
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Modal functions
+        function closeModal() {
+            document.getElementById('myModal').classList.remove('show');
+        }
+        
+        document.getElementById('btnCEDIS').addEventListener('click', function() {
+            document.getElementById('myModal').classList.add('show');
+        });
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
