@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entregas - SICAMEX</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📦 SICAMEX</h1>
+        <div class="header-controls">
+            <button class="cedis-selector" onclick="openCedisModal()">
+                🏢 <span id="cedisDisplay">Todos los CEDIS</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="clientes.html">Clientes</a></li>
+            <li><a href="entregas.html" class="active">Entregas</a></li>
+            <li><a href="devoluciones.html">Devoluciones</a></li>
+            <li><a href="indicadores.html">Indicadores</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h2 class="page-title">Registro de Entregas</h2>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3 class="table-title">Historial de Entregas</h3>
+                <button class="btn btn-primary" onclick="exportTableToCSV('tablaEntregas', 'entregas.csv')">
+                    📥 Exportar CSV
+                </button>
+            </div>
+            <table id="tablaEntregas">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>CEDIS</th>
+                        <th>Ruta</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="entregasBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal CEDIS -->
+    <div class="modal-overlay" id="cedisModal">
+        <div class="modal">
+            <h3 class="modal-title">Seleccionar CEDIS</h3>
+            <div class="cedis-list" id="cedisListContainer"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeCedisModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        async function loadEntregas() {
+            const entregas = dataManager.getEntregas();
+            const entregasBody = document.getElementById('entregasBody');
+            
+            entregasBody.innerHTML = entregas.map(entrega => {
+                const cliente = dataManager.getClienteById(entrega.cliente);
+                const cedis = dataManager.getCedisById(entrega.cedis);
+                
+                return `
+                    <tr>
+                        <td>${entrega.folio}</td>
+                        <td>${formatDate(entrega.fecha)}</td>
+                        <td>${cliente.nombre || entrega.cliente}</td>
+                        <td>${cedis.nombre || entrega.cedis}</td>
+                        <td>${entrega.ruta}</td>
+                        <td>${formatCurrency(entrega.total)}</td>
+                        <td><span class="status-badge ${getStatusClass(entrega.estado)}">${entrega.estado}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function refreshCurrentPage() {
+            loadEntregas();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await dataManager.loadData();
+            loadEntregas();
+            initNavigation();
+        });
+    </script>
+</body>
+</html>

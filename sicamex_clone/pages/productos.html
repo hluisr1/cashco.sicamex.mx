@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SICAMEX - Productos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="../index.html" class="logo">SICAMEX</a>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Dashboard</a></li>
+                    <li><a href="productos.html" class="active">Productos</a></li>
+                    <li><a href="clientes.html">Clientes</a></li>
+                    <li><a href="entregas.html">Entregas</a></li>
+                    <li><a href="devoluciones.html">Devoluciones</a></li>
+                    <li><a href="indicadores.html">Indicadores</a></li>
+                </ul>
+            </nav>
+            <button id="openCedisModal" class="btn btn-primary">Seleccionar CEDIS</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <h1 class="mb-2">Catálogo de Productos</h1>
+        
+        <div class="table-container" id="tabla-productos">
+            <div class="table-header">
+                <h2>Listado de Productos</h2>
+                <div>
+                    <button class="btn btn-primary" onclick="alert('Nuevo producto')">+ Nuevo Producto</button>
+                    <button class="btn btn-success" onclick="exportToCSV('tabla-productos', 'productos.csv')">Exportar CSV</button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Marca</th>
+                        <th>Grupo</th>
+                        <th>Precio</th>
+                        <th>Cargas</th>
+                        <th>Ventas</th>
+                        <th>Inventario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="productos-body">
+                    <!-- Se llena dinámicamente con JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal Selección CEDIS -->
+    <div id="cedisModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Seleccionar CEDIS</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div id="cedis-options">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" onclick="document.getElementById('cedisModal').classList.remove('active')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 SICAMEX - Sistema de Control y Administración de Mercancías</p>
+    </footer>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>

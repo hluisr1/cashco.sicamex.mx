@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Técnica - Prototipo SICAMEX</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --success: #16a34a;
+            --warning: #ca8a04;
+            --danger: #dc2626;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e40af);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { opacity: 0.9; margin-top: 0.5rem; font-size: 1.1rem; }
+
+        .container {
+            max-width: 1000px;
+            margin: -2rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        h2 { color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-top: 0; }
+        h3 { color: var(--secondary); margin-top: 1.5rem; }
+
+        .grid-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .module-item {
+            background: #eff6ff;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .rule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .rule-table th, .rule-table td {
+            text-align: left;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rule-table th { background-color: #f1f5f9; color: var(--secondary); }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge-high { background: #fee2e2; color: var(--danger); }
+        .badge-med { background: #fef3c7; color: var(--warning); }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+
+        .pros-cons ul { padding-left: 1.2rem; }
+        .pros li { color: var(--success); }
+        .cons li { color: var(--danger); }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Documentación Técnica: Prototipo SICAMEX</h1>
+    <p>Análisis de Arquitectura, Reglas de Negocio y Hoja de Ruta</p>
+</header>
+
+<div class="container">
+
+    <!-- Introducción -->
+    <div class="card">
+        <h2>1. Resumen Ejecutivo</h2>
+        <p>Este documento detalla el funcionamiento interno del prototipo actual de <strong>SICAMEX</strong>. El sistema es una aplicación web <em>frontend-only</em> (SPA simulada) que utiliza archivos JSON locales como base de datos. Su propósito es validar flujos de negocio logístico sin infraestructura de servidor.</p>
+        <p><strong>Objetivo del análisis:</strong> Identificar limitaciones actuales y definir la arquitectura necesaria para migrar a un sistema de producción robusto con base de datos relacional.</p>
+    </div>
+
+    <!-- Módulos -->
+    <div class="card">
+        <h2>2. Módulos Funcionales</h2>
+        <p>El prototipo se divide en 6 vistas principales interconectadas:</p>
+        <div class="grid-modules">
+            <div class="module-item">
+                <strong>📊 Dashboard</strong><br>
+                KPIs generales, gráfica de ventas por ruta y resumen de operaciones.
+            </div>
+            <div class="module-item">
+                <strong>📦 Productos</strong><br>
+                Catálogo maestro, control de stock y precios unitarios.
+            </div>
+            <div class="module-item">
+                <strong>👥 Clientes</strong><br>
+                CRM básico con datos de contacto y asignación de ruta/CEDIS.
+            </div>
+            <div class="module-item">
+                <strong>🚚 Entregas</strong><br>
+                Registro de salidas, asignación de productos a clientes y estatus.
+            </div>
+            <div class="module-item">
+                <strong>↩️ Devoluciones</strong><br>
+                Gestión de merma, retornos de producto y ajuste de inventario.
+            </div>
+            <div class="module-item">
+                <strong>📈 Indicadores</strong><br>
+                Tablas dinámicas de rendimiento y eficiencia por zona.
+            </div>
+        </div>
+    </div>
+
+    <!-- Reglas de Negocio -->
+    <div class="card">
+        <h2>3. Reglas de Negocio Detectadas</h2>
+        <p>Basado en el análisis del código <code>app.js</code> y la estructura de datos, estas son las lógicas críticas actuales:</p>
+        
+        <table class="rule-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Regla</th>
+                    <th>Lógica Actual</th>
+                    <th>Prioridad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RN-01</td>
+                    <td><strong>Integridad de Stock</strong></td>
+                    <td>El stock no se descuenta automáticamente al crear una entrega en el prototipo (se asume validación manual).</td>
+                    <td><span class="badge badge-high">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RN-02</td>
+                    <td><strong>Filtrado por CEDIS</strong></td>
+                    <td>Toda la información visualizada debe pertenecer estrictamente al CEDIS seleccionado en el modal inicial.</td>
+                    <td><span class="badge badge-high">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RN-03</td>
+                    <td><strong>Cálculo de Venta Neta</strong></td>
+                    <td>Venta Total = (Suma Entregas) - (Suma Devoluciones). Se calcula en tiempo real en el dashboard.</td>
+                    <td><span class="badge badge-med">Media</span></td>
+                </tr>
+                <tr>
+                    <td>RN-04</td>
+                    <td><strong>Estados de Entrega</strong></td>
+                    <td>Las entregas tienen estados: "Pendiente", "En Ruta", "Entregado". Las devoluciones cambian el estado a "Devuelto".</td>
+                    <td><span class="badge badge-med">Media</span></td>
+                </tr>
+                <tr>
+                    <td>RN-05</td>
+                    <td><strong>Unicidad de Cliente</strong></td>
+                    <td>Los clientes se identifican por ID, pero no hay validación de duplicados por email o teléfono en el frontend.</td>
+                    <td><span class="badge badge-med">Media</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Análisis Técnico -->
+    <div class="card">
+        <h2>4. Diagnóstico Técnico (Estado Actual)</h2>
+        <div class="comparison">
+            <div class="pros-cons">
+                <h3>✅ Fortalezas del Prototipo</h3>
+                <ul class="pros">
+                    <li><strong>Portabilidad:</strong> No requiere instalación de servidores ni bases de datos.</li>
+                    <li><strong>Velocidad de Desarrollo:</strong> Cambios inmediatos en el JSON reflejan cambios en la UI.</li>
+                    <li><strong>Desacople Visual:</strong> El CSS está bien separado y es mantenible.</li>
+                    <li><strong>UX Ágil:</strong> Uso de modales y filtrado dinámico sin recargas de página.</li>
+                </ul>
+            </div>
+            <div class="pros-cons">
+                <h3>⚠️ Debilidades Críticas</h3>
+                <ul class="cons">
+                    <li><strong>Persistencia Falsa:</strong> Los datos se reinician al recargar la página (no hay backend).</li>
+                    <li><strong>Concurrencia Nula:</strong> Dos usuarios no pueden trabajar simultáneamente.</li>
+                    <li><strong>Seguridad Inexistente:</strong> Cualquier usuario puede editar el JSON local.</li>
+                    <li><strong>Consultas Ineficientes:</strong> Filtrar grandes volúmenes de datos en JS bloquea el navegador.</li>
+                    <li><strong>Integridad Referencial Débil:</strong> Borrar un cliente no borra sus entregas asociadas (datos huérfanos).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Propuesta Relacional -->
+    <div class="card">
+        <h2>5. Propuesta de Esquema Relacional (Futuro)</h2>
+        <p>Para evolucionar a producción, se propone reemplazar el archivo <code>database.json</code> por una base de datos SQL (PostgreSQL/MySQL). Esto garantiza integridad, transacciones y seguridad.</p>
+        
+        <h3>Modelo Entidad-Relación Propuesto</h3>
+        <div class="code-block">
+-- 1. TABLA MAESTRA: CEDIS (Almacenes)
+CREATE TABLE cedis (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(100),
+    ubicacion VARCHAR(255),
+    activo BOOLEAN DEFAULT TRUE
+);
+
+-- 2. TABLA MAESTRA: PRODUCTOS
+CREATE TABLE productos (
+    id INT PRIMARY KEY,
+    sku VARCHAR(50) UNIQUE,
+    nombre VARCHAR(150),
+    precio_unitario DECIMAL(10,2),
+    stock_actual INT,
+    cedis_id INT REFERENCES cedis(id) -- Stock por almacén
+);
+
+-- 3. TABLA MAESTRA: CLIENTES
+CREATE TABLE clientes (
+    id INT PRIMARY KEY,
+    nombre VARCHAR(150),
+    rfc_nit VARCHAR(20),
+    direccion TEXT,
+    ruta_asignada VARCHAR(50),
+    cedis_id INT REFERENCES cedis(id)
+);
+
+-- 4. TRANSACCIONAL: ENTREGAS (Cabecera)
+CREATE TABLE entregas (
+    id INT PRIMARY KEY,
+    cliente_id INT REFERENCES clientes(id),
+    fecha_salida TIMESTAMP,
+    fecha_entrega TIMESTAMP,
+    estado ENUM('pendiente', 'en_ruta', 'entregado', 'devuelto'),
+    total_venta DECIMAL(10,2)
+);
+
+-- 5. TRANSACCIONAL: DETALLE_ENTREGA (Productos por entrega)
+CREATE TABLE detalle_entrega (
+    id INT PRIMARY KEY,
+    entrega_id INT REFERENCES entregas(id),
+    producto_id INT REFERENCES productos(id),
+    cantidad INT,
+    subtotal DECIMAL(10,2)
+);
+
+-- 6. TRANSACCIONAL: DEVOLUCIONES
+CREATE TABLE devoluciones (
+    id INT PRIMARY KEY,
+    entrega_id INT REFERENCES entregas(id),
+    motivo TEXT,
+    fecha_devolucion TIMESTAMP,
+    cantidad_devuelta INT
+);
+        </div>
+        <p><strong>Beneficios de este esquema:</strong></p>
+        <ul>
+            <li><strong>Integridad:</strong> No se puede crear una entrega para un cliente que no existe (Foreign Keys).</li>
+            <li><strong>Historial:</strong> Se mantiene el registro exacto de qué productos iban en cada entrega.</li>
+            <li><strong>Escalabilidad:</strong> Soporta millones de registros sin lentitud.</li>
+        </ul>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="card">
+        <h2>6. Roadmap de Evolución</h2>
+        <ol>
+            <li>
+                <strong>Fase 1: Backend API (Semanas 1-3)</strong><br>
+                Implementar Node.js/Express o Python/FastAPI. Crear endpoints REST para CRUD de clientes, productos y entregas. Conectar a PostgreSQL.
+            </li>
+            <li>
+                <strong>Fase 2: Migración de Datos (Semana 4)</strong><br>
+                Script de conversión para pasar los datos actuales del JSON a la nueva base de datos SQL limpia y normalizada.
+            </li>
+            <li>
+                <strong>Fase 3: Lógica de Negocio en Servidor (Semanas 5-6)</strong><br>
+                Mover las reglas de negocio (RN-01 a RN-05) del frontend al backend. Validar stock antes de guardar entregas.
+            </li>
+            <li>
+                <strong>Fase 4: Seguridad y Roles (Semana 7)</strong><br>
+                Implementar autenticación (Login) y roles (Admin vs. Operador). Solo Admin puede borrar registros.
+            </li>
+        </ol>
+    </div>
+
+</div>
+
+<footer>
+    <p>Generado automáticamente tras análisis de código fuente del prototipo SICAMEX.<br>
+    &copy; 2023 - Documento de Arquitectura de Software</p>
+</footer>
+
+</body>
+</html>

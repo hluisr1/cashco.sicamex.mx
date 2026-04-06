@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicadores - SICAMEX</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>📦 SICAMEX</h1>
+        <div class="header-controls">
+            <button class="cedis-selector" onclick="openCedisModal()">
+                🏢 <span id="cedisDisplay">Todos los CEDIS</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="nav-container">
+        <ul class="nav-menu">
+            <li><a href="../index.html">Dashboard</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="clientes.html">Clientes</a></li>
+            <li><a href="entregas.html">Entregas</a></li>
+            <li><a href="devoluciones.html">Devoluciones</a></li>
+            <li><a href="indicadores.html" class="active">Indicadores</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <h2 class="page-title">Indicadores de Gestión (KPIs)</h2>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="ventasMes">$0</div>
+                        <div class="card-label">Ventas del Mes</div>
+                    </div>
+                    <div class="card-icon blue">💰</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="entregasMes">0</div>
+                        <div class="card-label">Entregas en el Mes</div>
+                    </div>
+                    <div class="card-icon green">🚚</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="devolucionesMes">0</div>
+                        <div class="card-label">Devoluciones en el Mes</div>
+                    </div>
+                    <div class="card-icon orange">📋</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="tasaDevolucion">0%</div>
+                        <div class="card-label">Tasa de Devolución</div>
+                    </div>
+                    <div class="card-icon red">📉</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="cumplimiento">0%</div>
+                        <div class="card-label">Cumplimiento de Entregas</div>
+                    </div>
+                    <div class="card-icon purple">✅</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="tiempoEntrega">0 días</div>
+                        <div class="card-label">Tiempo Promedio de Entrega</div>
+                    </div>
+                    <div class="card-icon green">⏱️</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="productosActivos">0</div>
+                        <div class="card-label">Productos Activos</div>
+                    </div>
+                    <div class="card-icon blue">📦</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="clientesActivos">0</div>
+                        <div class="card-label">Clientes Activos</div>
+                    </div>
+                    <div class="card-icon purple">👥</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-value" id="ticketPromedio">$0</div>
+                        <div class="card-label">Ticket Promedio por Entrega</div>
+                    </div>
+                    <div class="card-icon orange">📊</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h3 class="table-title">Resumen de Indicadores</h3>
+            <table id="tablaIndicadores">
+                <thead>
+                    <tr>
+                        <th>Indicador</th>
+                        <th>Valor</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody id="indicadoresBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal CEDIS -->
+    <div class="modal-overlay" id="cedisModal">
+        <div class="modal">
+            <h3 class="modal-title">Seleccionar CEDIS</h3>
+            <div class="cedis-list" id="cedisListContainer"></div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeCedisModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        const indicadoresDescripcion = {
+            ventasMes: 'Total de ventas acumuladas en el mes actual',
+            entregasMes: 'Número total de entregas realizadas en el mes',
+            devolucionesMes: 'Número total de devoluciones procesadas en el mes',
+            tasaDevolucion: 'Porcentaje de devoluciones respecto a las ventas totales',
+            cumplimientoEntregas: 'Porcentaje de entregas completadas exitosamente',
+            tiempoPromedioEntrega: 'Tiempo promedio en días desde la orden hasta la entrega',
+            productosActivos: 'Número de productos activos en el catálogo',
+            clientesActivos: 'Número de clientes activos en el sistema',
+            ticketPromedio: 'Valor promedio de cada entrega realizada'
+        };
+
+        async function loadIndicadores() {
+            const indicadores = dataManager.getIndicadores();
+            
+            // Update cards
+            document.getElementById('ventasMes').textContent = formatCurrency(indicadores.ventasMes || 0);
+            document.getElementById('entregasMes').textContent = indicadores.entregasMes || 0;
+            document.getElementById('devolucionesMes').textContent = indicadores.devolucionesMes || 0;
+            document.getElementById('tasaDevolucion').textContent = (indicadores.tasaDevolucion || 0) + '%';
+            document.getElementById('cumplimiento').textContent = (indicadores.cumplimientoEntregas || 0) + '%';
+            document.getElementById('tiempoEntrega').textContent = (indicadores.tiempoPromedioEntrega || 0) + ' días';
+            document.getElementById('productosActivos').textContent = indicadores.productosActivos || 0;
+            document.getElementById('clientesActivos').textContent = indicadores.clientesActivos || 0;
+            document.getElementById('ticketPromedio').textContent = formatCurrency(indicadores.ticketPromedio || 0);
+
+            // Update table
+            const indicadoresBody = document.getElementById('indicadoresBody');
+            const indicadoresMap = [
+                { key: 'ventasMes', label: 'Ventas del Mes' },
+                { key: 'entregasMes', label: 'Entregas en el Mes' },
+                { key: 'devolucionesMes', label: 'Devoluciones en el Mes' },
+                { key: 'tasaDevolucion', label: 'Tasa de Devolución' },
+                { key: 'cumplimientoEntregas', label: 'Cumplimiento de Entregas' },
+                { key: 'tiempoPromedioEntrega', label: 'Tiempo Promedio de Entrega' },
+                { key: 'productosActivos', label: 'Productos Activos' },
+                { key: 'clientesActivos', label: 'Clientes Activos' },
+                { key: 'ticketPromedio', label: 'Ticket Promedio' }
+            ];
+
+            indicadoresBody.innerHTML = indicadoresMap.map(item => {
+                let valor = indicadores[item.key];
+                
+                if (item.key === 'ventasMes' || item.key === 'ticketPromedio') {
+                    valor = formatCurrency(valor || 0);
+                } else if (item.key.includes('tasa') || item.key.includes('cumplimiento')) {
+                    valor = (valor || 0) + '%';
+                } else if (item.key === 'tiempoPromedioEntrega') {
+                    valor = (valor || 0) + ' días';
+                }
+
+                return `
+                    <tr>
+                        <td>${item.label}</td>
+                        <td><strong>${valor}</strong></td>
+                        <td>${indicadoresDescripcion[item.key] || ''}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function refreshCurrentPage() {
+            loadIndicadores();
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await dataManager.loadData();
+            loadIndicadores();
+            initNavigation();
+        });
+    </script>
+</body>
+</html>
